@@ -11,6 +11,7 @@ public static class DependencyInjection
     );
 
     services.AddSingleton<MongoDbContext>();
+    services.AddScoped<ICouponRepository, MongoCouponRepository>();
 
     return services;
   }
