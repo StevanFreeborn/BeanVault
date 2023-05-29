@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch CouponAPI",
+      "name": "Launch CouponService",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponAPI/bin/Debug/net7.0/BeanVault.Services.CouponAPI.dll",
+      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/bin/Debug/net7.0/BeanVault.Services.CouponService.API.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponAPI",
+      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService",
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",
