@@ -18,4 +18,15 @@ public class CouponDto
     DiscountAmount = coupon.DiscountAmount;
     MinAmount = coupon.MinAmount;
   }
+
+  public Coupon ToCoupon()
+  {
+    return new Coupon
+    {
+      Id = Id,
+      CouponCode = CouponCode,
+      DiscountAmount = DiscountAmount,
+      MinAmount = MinAmount,
+    };
+  }
 }
