@@ -1,4 +1,4 @@
-﻿namespace BeanVault.Core.Models;
+namespace BeanVault.Services.CouponService.Core.Models;
 
 public class Coupon
 {

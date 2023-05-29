@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeanVault.Services.CouponAPI.Controllers;
+namespace BeanVault.Services.CouponService.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]

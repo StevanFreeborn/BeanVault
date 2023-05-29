@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BeanVault.Core\BeanVault.Core.csproj" />
+    <ProjectReference Include="..\BeanVault.Services.CouponService.Core\BeanVault.Services.CouponService.Core.csproj" />
   </ItemGroup>
 
 </Project>

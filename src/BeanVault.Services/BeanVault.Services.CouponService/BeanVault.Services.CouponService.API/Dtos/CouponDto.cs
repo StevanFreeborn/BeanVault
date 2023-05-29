@@ -1,4 +1,4 @@
-namespace BeanVault.Services.CouponAPI.Dtos;
+namespace BeanVault.Services.CouponService.API.Dtos;
 
 public class CouponDto
 {

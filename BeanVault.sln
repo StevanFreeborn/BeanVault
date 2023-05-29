@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{06AEA6D0-5AF6-4D9C-99BC-9C6C67C811AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{95BF8592-F545-433D-BF10-3EF16A1A40F4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BeanVault.Services", "BeanVault.Services", "{879B2360-7E8D-4EA9-AC35-7443E38B2ECF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BeanVault.Services", "BeanVault.Services", "{6FC13318-A6E2-40A6-830F-5D9CEF880706}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponAPI", "src\BeanVault.Services\BeanVault.Services.CouponAPI\BeanVault.Services.CouponAPI.csproj", "{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BeanVault.Services.CouponService", "BeanVault.Services.CouponService", "{443367F4-B61E-47DB-97D1-9AE8A38570B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Core", "src\BeanVault.Core\BeanVault.Core.csproj", "{75B2DF27-DF53-4A2C-9385-4707292060E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponService.API", "src\BeanVault.Services\BeanVault.Services.CouponService\BeanVault.Services.CouponService.API\BeanVault.Services.CouponService.API.csproj", "{10E40E8C-4109-49E3-B54F-A5FDFF680F66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponService.Core", "src\BeanVault.Services\BeanVault.Services.CouponService\BeanVault.Services.CouponService.Core\BeanVault.Services.CouponService.Core.csproj", "{DCFA4E05-75E4-4FF9-83A3-D353D884E69F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponService.Infrastructure", "src\BeanVault.Services\BeanVault.Services.CouponService\BeanVault.Services.CouponService.Infrastructure\BeanVault.Services.CouponService.Infrastructure.csproj", "{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,18 +24,24 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E40E8C-4109-49E3-B54F-A5FDFF680F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E40E8C-4109-49E3-B54F-A5FDFF680F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E40E8C-4109-49E3-B54F-A5FDFF680F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E40E8C-4109-49E3-B54F-A5FDFF680F66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCFA4E05-75E4-4FF9-83A3-D353D884E69F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFA4E05-75E4-4FF9-83A3-D353D884E69F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFA4E05-75E4-4FF9-83A3-D353D884E69F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFA4E05-75E4-4FF9-83A3-D353D884E69F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{879B2360-7E8D-4EA9-AC35-7443E38B2ECF} = {06AEA6D0-5AF6-4D9C-99BC-9C6C67C811AF}
-		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D} = {879B2360-7E8D-4EA9-AC35-7443E38B2ECF}
-		{75B2DF27-DF53-4A2C-9385-4707292060E2} = {06AEA6D0-5AF6-4D9C-99BC-9C6C67C811AF}
+		{6FC13318-A6E2-40A6-830F-5D9CEF880706} = {95BF8592-F545-433D-BF10-3EF16A1A40F4}
+		{443367F4-B61E-47DB-97D1-9AE8A38570B6} = {6FC13318-A6E2-40A6-830F-5D9CEF880706}
+		{10E40E8C-4109-49E3-B54F-A5FDFF680F66} = {443367F4-B61E-47DB-97D1-9AE8A38570B6}
+		{DCFA4E05-75E4-4FF9-83A3-D353D884E69F} = {443367F4-B61E-47DB-97D1-9AE8A38570B6}
+		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319} = {443367F4-B61E-47DB-97D1-9AE8A38570B6}
 	EndGlobalSection
 EndGlobal

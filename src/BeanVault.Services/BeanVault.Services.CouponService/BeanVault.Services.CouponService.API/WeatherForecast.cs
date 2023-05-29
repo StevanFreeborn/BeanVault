@@ -1,4 +1,4 @@
-namespace BeanVault.Services.CouponAPI;
+namespace BeanVault.Services.CouponService.API;
 
 public class WeatherForecast
 {
