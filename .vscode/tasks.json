@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponAPI/BeanVault.Services.CouponAPI.csproj",
+        "${workspaceFolder}",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
