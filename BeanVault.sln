@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BeanVault.Services", "BeanV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponAPI", "src\BeanVault.Services\BeanVault.Services.CouponAPI\BeanVault.Services.CouponAPI.csproj", "{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Core", "src\BeanVault.Core\BeanVault.Core.csproj", "{75B2DF27-DF53-4A2C-9385-4707292060E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,9 +24,14 @@ Global
 		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75B2DF27-DF53-4A2C-9385-4707292060E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{879B2360-7E8D-4EA9-AC35-7443E38B2ECF} = {06AEA6D0-5AF6-4D9C-99BC-9C6C67C811AF}
 		{75ED57F0-8FE6-4886-BF15-220AFD3AF35D} = {879B2360-7E8D-4EA9-AC35-7443E38B2ECF}
+		{75B2DF27-DF53-4A2C-9385-4707292060E2} = {06AEA6D0-5AF6-4D9C-99BC-9C6C67C811AF}
 	EndGlobalSection
 EndGlobal
