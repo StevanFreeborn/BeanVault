@@ -9,9 +9,9 @@ public static class ClassMapper
     {
       cm.AutoMap();
       cm.MapIdProperty(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
-      cm.MapIdProperty(c => c.CouponCode).SetElementName("couponCode");
-      cm.MapIdProperty(c => c.DiscountAmount).SetElementName("discountAmount");
-      cm.MapIdProperty(c => c.MinAmount).SetElementName("minAmount");
+      cm.MapProperty(c => c.CouponCode).SetElementName("couponCode");
+      cm.MapProperty(c => c.DiscountAmount).SetElementName("discountAmount");
+      cm.MapProperty(c => c.MinAmount).SetElementName("minAmount");
     }
   );
   }

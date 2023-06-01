@@ -7,4 +7,14 @@ public class MongoCouponRepository : ICouponRepository
   {
     _context = context;
   }
+
+  public async Task AddCouponAsync(Coupon coupon)
+  {
+    await _context.Coupons.InsertOneAsync(coupon);
+  }
+
+  public async Task<List<Coupon>> GetCouponsAsync()
+  {
+    return await _context.Coupons.AsQueryable().ToListAsync();
+  }
 }

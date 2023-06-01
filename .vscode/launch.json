@@ -8,7 +8,7 @@
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/bin/Debug/net7.0/BeanVault.Services.CouponService.API.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService",
+      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API",
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",

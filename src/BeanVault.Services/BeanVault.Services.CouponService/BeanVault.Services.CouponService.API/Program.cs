@@ -4,6 +4,15 @@ var config = builder.Configuration;
 builder.Services.AddInfrastructure(config);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddApiVersioning(
+      config =>
+      {
+        config.DefaultApiVersion = new ApiVersion(1, 0);
+        config.AssumeDefaultVersionWhenUnspecified = true;
+        config.ReportApiVersions = true;
+        config.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
+      }
+    );
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
