@@ -17,4 +17,9 @@ public class MongoCouponRepository : ICouponRepository
   {
     return await _context.Coupons.AsQueryable().ToListAsync();
   }
+
+  public async Task<Coupon?> GetCouponByIdAsync(string id)
+  {
+    return await _context.Coupons.Find(c => c.Id == id).FirstOrDefaultAsync();
+  }
 }

@@ -26,6 +26,26 @@ public class CouponsController : ControllerBase
   }
 
   [MapToApiVersion("1.0")]
+  [HttpGet("{id}")]
+  [ProducesResponseType(typeof(List<CouponDto>), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+  public async Task<IActionResult> GetCouponByIdAsync(string id)
+  {
+    var coupon = await _couponRepository.GetCouponByIdAsync(id);
+
+    if (coupon == null)
+    {
+      return NotFound();
+    }
+
+    var couponDto = new CouponDto(coupon);
+
+    return Ok(couponDto);
+  }
+
+  [MapToApiVersion("1.0")]
   [HttpPost]
   public async Task<IActionResult> AddCouponAsync(AddCouponDto addCouponDto)
   {
