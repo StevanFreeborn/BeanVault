@@ -18,9 +18,9 @@ public class CouponsController : ControllerBase
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> GetCouponsAsync()
+  public async Task<IActionResult> GetCouponsAsync([FromQuery] CouponQuery query)
   {
-    var coupons = await _couponRepository.GetCouponsAsync();
+    var coupons = await _couponRepository.GetCouponsAsync(query);
     var couponDtos = coupons.Select(c => new CouponDto(c)).ToList();
     return Ok(couponDtos);
   }
