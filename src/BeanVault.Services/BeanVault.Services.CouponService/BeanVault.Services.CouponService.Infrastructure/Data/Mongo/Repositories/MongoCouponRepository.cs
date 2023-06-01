@@ -8,9 +8,10 @@ public class MongoCouponRepository : ICouponRepository
     _context = context;
   }
 
-  public async Task AddCouponAsync(Coupon coupon)
+  public async Task<Coupon> AddCouponAsync(Coupon coupon)
   {
     await _context.Coupons.InsertOneAsync(coupon);
+    return coupon;
   }
 
   public async Task<List<Coupon>> GetCouponsAsync(CouponQuery query)
@@ -29,4 +30,6 @@ public class MongoCouponRepository : ICouponRepository
   {
     return await _context.Coupons.Find(c => c.Id == id).FirstOrDefaultAsync();
   }
+
+
 }

@@ -1,3 +1,5 @@
+global using System.ComponentModel.DataAnnotations;
+
 global using BeanVault.Services.CouponService.API.Dtos;
 global using BeanVault.Services.CouponService.Core.Interfaces;
 global using BeanVault.Services.CouponService.Core.Models;
