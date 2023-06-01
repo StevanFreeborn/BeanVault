@@ -31,5 +31,15 @@ public class MongoCouponRepository : ICouponRepository
     return await _context.Coupons.Find(c => c.Id == id).FirstOrDefaultAsync();
   }
 
-
+  public async Task<Coupon?> UpdateCouponByIdAsync(Coupon coupon)
+  {
+    return await _context.Coupons.FindOneAndReplaceAsync(
+      c => c.Id == coupon.Id,
+      coupon,
+      new()
+      {
+        ReturnDocument = ReturnDocument.After,
+      }
+    );
+  }
 }

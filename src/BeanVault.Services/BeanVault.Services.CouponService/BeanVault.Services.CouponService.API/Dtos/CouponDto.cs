@@ -4,6 +4,7 @@ namespace BeanVault.Services.CouponService.API.Dtos;
 
 public class CouponDto
 {
+  [Required]
   public string Id { get; set; } = string.Empty;
   public string CouponCode { get; set; } = string.Empty;
   public double DiscountAmount { get; set; }

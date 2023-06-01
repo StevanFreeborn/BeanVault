@@ -55,4 +55,22 @@ public class CouponsController : ControllerBase
     var newCoupon = await _couponRepository.AddCouponAsync(coupon);
     return Created($"/api/coupons/{newCoupon.Id}", new CouponDto(newCoupon));
   }
+
+  [MapToApiVersion("1.0")]
+  [HttpPut]
+  [ProducesResponseType(typeof(CouponDto), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+  public async Task<IActionResult> UpdateCouponAsync(CouponDto couponDto)
+  {
+    var updatedCoupon = await _couponRepository.UpdateCouponByIdAsync(couponDto.ToCoupon());
+
+    if (updatedCoupon is null)
+    {
+      return NotFound();
+    }
+
+    return Ok(new CouponDto(updatedCoupon));
+  }
 }
