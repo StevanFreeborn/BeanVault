@@ -6,4 +6,5 @@ public interface ICouponRepository
   Task<List<Coupon>> GetCouponsAsync(CouponQuery query);
   Task<Coupon?> GetCouponByIdAsync(string id);
   Task<Coupon?> UpdateCouponByIdAsync(Coupon coupon);
+  Task<Coupon?> DeleteCouponByIdAsync(string id);
 }

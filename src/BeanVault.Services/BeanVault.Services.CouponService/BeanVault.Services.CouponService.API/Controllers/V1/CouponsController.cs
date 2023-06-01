@@ -35,7 +35,7 @@ public class CouponsController : ControllerBase
   {
     var coupon = await _couponRepository.GetCouponByIdAsync(id);
 
-    if (coupon == null)
+    if (coupon is null)
     {
       return NotFound();
     }
@@ -72,5 +72,23 @@ public class CouponsController : ControllerBase
     }
 
     return Ok(new CouponDto(updatedCoupon));
+  }
+
+  [MapToApiVersion("1.0")]
+  [HttpDelete("{id}")]
+  [ProducesResponseType(StatusCodes.Status204NoContent)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+  public async Task<IActionResult> DeleteCouponByIdAsync(string id)
+  {
+    var deletedCoupon = await _couponRepository.DeleteCouponByIdAsync(id);
+
+    if (deletedCoupon is null)
+    {
+      return NotFound();
+    }
+
+    return NoContent();
   }
 }

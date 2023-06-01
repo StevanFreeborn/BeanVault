@@ -6,8 +6,14 @@ public class CouponDto
 {
   [Required]
   public string Id { get; set; } = string.Empty;
+
+  [Required]
   public string CouponCode { get; set; } = string.Empty;
+
+  [Required]
   public double DiscountAmount { get; set; }
+
+  [Required]
   public int MinAmount { get; set; }
 
   public CouponDto()

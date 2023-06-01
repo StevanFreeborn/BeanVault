@@ -42,4 +42,9 @@ public class MongoCouponRepository : ICouponRepository
       }
     );
   }
+
+  public async Task<Coupon?> DeleteCouponByIdAsync(string id)
+  {
+    return await _context.Coupons.FindOneAndDeleteAsync(c => c.Id == id);
+  }
 }
