@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link.js';
 import { useState } from 'react';
 import { RxChevronDown } from 'react-icons/rx';
 import styles from './Navbar.module.css';
@@ -28,7 +29,14 @@ export default function Navbar() {
               isDropdownOpen ? styles.dropdownNavOpen : styles.dropdownNavClosed
             }
           >
-            <li className={styles.dropdownNavItem}>Coupon</li>
+            <li className={styles.dropdownNavItem}>
+              <Link
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                href={'coupons'}
+              >
+                Coupons
+              </Link>
+            </li>
           </ul>
         </li>
       </ul>
