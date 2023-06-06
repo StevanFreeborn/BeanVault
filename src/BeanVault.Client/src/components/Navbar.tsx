@@ -32,7 +32,7 @@ export default function Navbar() {
             <li className={styles.dropdownNavItem}>
               <Link
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                href={'coupons'}
+                href="coupons"
               >
                 Coupons
               </Link>
