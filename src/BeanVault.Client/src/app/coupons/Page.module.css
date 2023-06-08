@@ -1,0 +1,88 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  width: 100%;
+  max-width: 960px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  background-color: #858a92;
+  color: #ffffff;
+  padding: 1rem 0;
+}
+
+.cardBody {
+  padding: 1rem;
+  background-color: #343740;
+}
+
+.addButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.couponTable {
+  width: 100%;
+  background-color: #3d424b;
+  padding: 0.5rem;
+}
+
+.couponTableHeader {
+  color: #ffffff;
+  text-align: left;
+}
+
+.couponTableHeader th {
+  padding: 0.25rem 0;
+}
+
+.couponTableBody {
+  color: #ffffff;
+}
+
+.couponTableBody td {
+  padding: 0.25rem 0;
+}
+
+.deleteCouponButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e85b5b;
+  color: #ffffff;
+  padding: 0.75rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.deleteCouponButton:hover {
+  background-color: #c94c4c;
+}
+
+.addCouponButton {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #343740;
+  color: #ffffff;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.addCouponButton:hover {
+  background-color: #2a2d34;
+}
