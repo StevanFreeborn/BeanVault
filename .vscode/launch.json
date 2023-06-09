@@ -10,6 +10,8 @@
       "args": [],
       "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/",
       "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal",
       "serverReadyAction": {
         "action": "openExternally",
         "pattern": "\\bNow listening on:\\s+(https?://\\S+)",

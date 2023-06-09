@@ -18,7 +18,7 @@ public class CouponsController : ControllerBase
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> GetCouponsAsync([FromQuery] CouponQuery query)
+  public async Task<IActionResult> GetCoupons([FromQuery] CouponQuery query)
   {
     var coupons = await _couponRepository.GetCouponsAsync(query);
     var couponDtos = coupons.Select(c => new CouponDto(c)).ToList();
@@ -31,7 +31,7 @@ public class CouponsController : ControllerBase
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> GetCouponByIdAsync(string id)
+  public async Task<IActionResult> GetCouponById(string id)
   {
     var coupon = await _couponRepository.GetCouponByIdAsync(id);
 
@@ -47,13 +47,16 @@ public class CouponsController : ControllerBase
   [HttpPost]
   [ProducesResponseType(typeof(CouponDto), StatusCodes.Status201Created)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> AddCouponAsync(AddCouponDto addCouponDto)
   {
     var coupon = addCouponDto.ToCoupon();
     var newCoupon = await _couponRepository.AddCouponAsync(coupon);
-    return Created($"/api/coupons/{newCoupon.Id}", new CouponDto(newCoupon));
+    return CreatedAtAction(
+      nameof(GetCouponById),
+      new { id = newCoupon.Id },
+      new CouponDto(newCoupon)
+    );
   }
 
   [MapToApiVersion("1.0")]
@@ -62,7 +65,7 @@ public class CouponsController : ControllerBase
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> UpdateCouponAsync(CouponDto couponDto)
+  public async Task<IActionResult> UpdateCoupon(CouponDto couponDto)
   {
     var updatedCoupon = await _couponRepository.UpdateCouponByIdAsync(couponDto.ToCoupon());
 
@@ -80,7 +83,7 @@ public class CouponsController : ControllerBase
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> DeleteCouponByIdAsync(string id)
+  public async Task<IActionResult> DeleteCouponById(string id)
   {
     var deletedCoupon = await _couponRepository.DeleteCouponByIdAsync(id);
 
