@@ -71,7 +71,7 @@
   background-color: #c94c4c;
 }
 
-.addCouponButton {
+.addCouponLink {
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -83,6 +83,6 @@
   cursor: pointer;
 }
 
-.addCouponButton:hover {
+.addCouponLink:hover {
   background-color: #2a2d34;
 }

@@ -1,5 +1,6 @@
 import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
+import Link from 'next/link.js';
 import { AiOutlinePlusSquare } from 'react-icons/ai';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import styles from './Page.module.css';
@@ -19,14 +20,14 @@ export default async function CouponsPage() {
       </div>
       <div className={styles.cardBody}>
         <div className={styles.addButtonContainer}>
-          <button
+          <Link
+            href="coupons/add"
             title="Add New Coupon"
-            type="button"
-            className={styles.addCouponButton}
+            className={styles.addCouponLink}
           >
             <AiOutlinePlusSquare />
             Create New Coupon
-          </button>
+          </Link>
         </div>
         <table className={styles.couponTable}>
           <thead className={styles.couponTableHeader}>
