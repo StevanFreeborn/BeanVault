@@ -1,0 +1,38 @@
+.couponTable {
+  width: 100%;
+  background-color: #3d424b;
+  padding: 0.5rem;
+}
+
+.couponTableHeader {
+  color: #ffffff;
+  text-align: left;
+}
+
+.couponTableHeader th {
+  padding: 0.25rem 0;
+}
+
+.couponTableBody {
+  color: #ffffff;
+}
+
+.couponTableBody td {
+  padding: 0.25rem 0;
+}
+
+.deleteCouponButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e85b5b;
+  color: #ffffff;
+  padding: 0.75rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.deleteCouponButton:hover {
+  background-color: #c94c4c;
+}

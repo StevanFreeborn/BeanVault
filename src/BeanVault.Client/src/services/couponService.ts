@@ -1,11 +1,5 @@
-import { fetchClient } from '@/types/fetchClient.js';
-
-type Coupon = {
-  id: string;
-  couponCode: string;
-  discountAmount: number;
-  minAmount: number;
-};
+import { Coupon } from '@/types/Coupon';
+import { fetchClient } from '@/types/fetchClient';
 
 export function couponService({ client }: { client: fetchClient }) {
   const COUPON_SERVICE_URL = process.env.NEXT_PUBLIC_COUPON_SERVICE_URL;

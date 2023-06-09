@@ -1,17 +1,13 @@
+import CouponTable from '@/components/CouponTable';
 import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
-import Link from 'next/link.js';
+import Link from 'next/link';
 import { AiOutlinePlusSquare } from 'react-icons/ai';
-import { BsFillTrash3Fill } from 'react-icons/bs';
 import styles from './Page.module.css';
 
 export default async function CouponsPage() {
   const { getCoupons } = couponService({ client: fetchClient() });
   const coupons = await getCoupons();
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
 
   return (
     <div className={styles.card}>
@@ -29,34 +25,7 @@ export default async function CouponsPage() {
             Create New Coupon
           </Link>
         </div>
-        <table className={styles.couponTable}>
-          <thead className={styles.couponTableHeader}>
-            <tr>
-              <th>Coupon Code</th>
-              <th>Discount Amount</th>
-              <th>Minimum Amount</th>
-            </tr>
-          </thead>
-          <tbody className={styles.couponTableBody}>
-            {coupons.map(coupon => (
-              <tr>
-                <td>{coupon.couponCode}</td>
-                <td>{formatter.format(coupon.discountAmount)}</td>
-                <td>{formatter.format(coupon.minAmount)}</td>
-                <td>
-                  <button
-                    data-coupon-id={coupon.id}
-                    title="delete coupon button"
-                    type="button"
-                    className={styles.deleteCouponButton}
-                  >
-                    <BsFillTrash3Fill />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <CouponTable coupons={coupons} />
       </div>
     </div>
   );
