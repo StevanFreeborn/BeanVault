@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link.js';
+import Link from 'next/link';
 import { useState } from 'react';
 import { RxChevronDown } from 'react-icons/rx';
 import styles from './Navbar.module.css';
@@ -11,7 +11,9 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarBrand}>
-        <h1>BeanVault</h1>
+        <Link href="/">
+          <h1>BeanVault</h1>
+        </Link>
       </div>
       <ul className={styles.nav}>
         <li className={styles.navItem}>Home</li>
