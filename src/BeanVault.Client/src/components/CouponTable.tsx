@@ -15,6 +15,7 @@ export default function CouponTable({ coupons }: { coupons: Coupon[] }) {
           <th>Coupon Code</th>
           <th>Discount Amount</th>
           <th>Minimum Amount</th>
+          <th></th>
         </tr>
       </thead>
       <tbody className={styles.couponTableBody}>
