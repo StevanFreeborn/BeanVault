@@ -2,6 +2,7 @@
   width: 100%;
   background-color: #3d424b;
   border-collapse: collapse;
+  color: #ffffff;
 }
 
 .couponTable th,
@@ -11,12 +12,7 @@
 }
 
 .couponTableHeader {
-  color: #ffffff;
   text-align: left;
-}
-
-.couponTableBody {
-  color: #ffffff;
 }
 
 .deleteCouponButton {

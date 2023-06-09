@@ -18,7 +18,7 @@ export default function CouponTable({ coupons }: { coupons: Coupon[] }) {
           <th></th>
         </tr>
       </thead>
-      <tbody className={styles.couponTableBody}>
+      <tbody>
         {coupons.map(coupon => (
           <tr>
             <td>{coupon.couponCode}</td>
