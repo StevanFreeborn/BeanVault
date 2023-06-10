@@ -81,3 +81,8 @@
   background-color: #5eb15d;
   border-color: #5eb15d;
 }
+
+.error {
+  list-style: none;
+  color: #ff0000
+}

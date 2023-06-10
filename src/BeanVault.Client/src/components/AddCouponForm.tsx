@@ -1,25 +1,19 @@
 'use client';
 
+import { fetchClient } from '@/http/fetchClient';
+import { couponService } from '@/services/couponService';
+import { AddCouponFormAction } from '@/types/AddCouponFormAction';
+import { AddCouponFormData } from '@/types/AddCouponFormData';
+import { AddCouponFormState } from '@/types/AddCouponFormState';
 import Link from 'next/link';
-import { HTMLInputTypeAttribute, InputHTMLAttributes, useReducer } from 'react';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useReducer } from 'react';
 import styles from './AddCouponForm.module.css';
 
 export default function AddCouponForm() {
-  type FormAction =
-    | { type: 'updateValue'; payload: { name: string; value: string } }
-    | { type: 'updateErrors' };
+  const router = useRouter();
 
-  type FormState = { [key: string]: FormField };
-
-  type FormField = {
-    labelText: string;
-    type: HTMLInputTypeAttribute;
-    value: string;
-    errors: string[];
-    inputProps?: InputHTMLAttributes<HTMLInputElement>;
-  };
-
-  const initialFormState: FormState = {
+  const initialFormState: AddCouponFormState = {
     couponCode: {
       labelText: 'Coupon Code',
       type: 'text',
@@ -27,6 +21,8 @@ export default function AddCouponForm() {
       errors: [],
       inputProps: {
         placeholder: 'BuyOneGetOne',
+        required: true,
+        maxLength: 150,
       },
     },
     discountAmount: {
@@ -35,6 +31,7 @@ export default function AddCouponForm() {
       value: '',
       errors: [],
       inputProps: {
+        required: true,
         placeholder: '1',
         min: '1',
       },
@@ -45,25 +42,39 @@ export default function AddCouponForm() {
       value: '',
       errors: [],
       inputProps: {
-        placeholder: '0',
-        min: '0',
+        required: true,
+        placeholder: '1',
+        min: '1',
       },
     },
   };
 
-  function formReducer(state: FormState, action: FormAction) {
+  function formReducer(state: AddCouponFormState, action: AddCouponFormAction) {
     switch (action.type) {
       case 'updateValue': {
-        const field = state[action.payload.name];
+        const field = state[action.payload.field];
         const newField = { ...field };
         newField.value = action.payload.value;
+        newField.errors = [];
         return {
           ...state,
-          [action.payload.name]: newField,
+          [action.payload.field]: newField,
         };
       }
-      case 'updateErrors':
-        return state;
+      case 'updateErrors': {
+        const field = state[action.payload.field];
+        const newField = { ...field };
+        newField.errors.push(action.payload.error);
+        return {
+          ...state,
+          [action.payload.field]: newField,
+        };
+      }
+      case 'resetAllErrors': {
+        const newState = { ...state };
+        Object.keys(state).forEach(key => (newState[key].errors = []));
+        return newState;
+      }
       default:
         return state;
     }
@@ -71,11 +82,79 @@ export default function AddCouponForm() {
 
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    dispatch({ type: 'resetAllErrors' });
+
+    const formData: AddCouponFormData = Object.keys(formState).reduce(
+      (prev, curr) => {
+        return {
+          ...prev,
+          [curr]: formState[curr].value,
+        };
+      },
+      {}
+    );
+
+    const formDataErrors = Object.keys(formData)
+      .map(field => {
+        const errors = [];
+        const formDataValue = formData[field];
+        const formField = formState[field];
+
+        if (formField.inputProps?.required && !formDataValue) {
+          errors.push({
+            field,
+            error: `${formState[field].labelText} is required.`,
+          });
+        }
+
+        if (
+          formField.inputProps?.maxLength &&
+          formDataValue.length > formField.inputProps.maxLength
+        ) {
+          errors.push({
+            field,
+            error: `${formState[field].labelText} cannot be more than ${formField.inputProps.maxLength} characters.`,
+          });
+        }
+
+        if (
+          formField.inputProps?.min &&
+          Number(formDataValue) < Number(formField.inputProps.min)
+        ) {
+          errors.push({
+            field,
+            error: `${formState[field].labelText} must be greater than or equal to ${formField.inputProps.min}.`,
+          });
+        }
+
+        return errors;
+      })
+      .flat();
+
+    if (formDataErrors.length > 0) {
+      formDataErrors.forEach(error => {
+        dispatch({ type: 'updateErrors', payload: error });
+      });
+
+      return;
+    }
+
+    const { addCoupon } = couponService({ client: fetchClient() });
+    await addCoupon({ newCoupon: formData });
+    router.push('coupons');
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.formHeader}>Add Coupon</h1>
       <hr className={styles.separator} />
-      <form className={styles.addCouponForm}>
+      <form
+        className={styles.addCouponForm}
+        onSubmit={handleFormSubmit}
+        noValidate={true}
+      >
         {Object.keys(formState).map(key => {
           const formField = formState[key];
           return (
@@ -90,16 +169,16 @@ export default function AddCouponForm() {
                 className={styles.formControl}
                 type={formField.type}
                 value={formField.value}
-                onChange={e =>
+                onChange={e => {
                   dispatch({
                     type: 'updateValue',
-                    payload: { name: e.target.name, value: e.target.value },
-                  })
-                }
+                    payload: { field: e.target.name, value: e.target.value },
+                  });
+                }}
               />
               <ul className={styles.error}>
-                {formField.errors.map(error => (
-                  <li>{error}</li>
+                {formField.errors.map((error, i) => (
+                  <li key={i}>{error}</li>
                 ))}
               </ul>
             </div>

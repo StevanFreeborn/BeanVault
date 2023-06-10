@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { AiOutlinePlusSquare } from 'react-icons/ai';
 import styles from './Page.module.css';
 
+export const revalidate = 0;
+
 export default async function CouponsPage() {
   const { getCoupons } = couponService({ client: fetchClient() });
   const coupons = await getCoupons();
@@ -25,7 +27,7 @@ export default async function CouponsPage() {
             Create New Coupon
           </Link>
         </div>
-        <CouponTable coupons={coupons} />
+        <CouponTable initialCouponState={coupons} />
       </div>
     </div>
   );
