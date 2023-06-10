@@ -15,7 +15,7 @@ public static class DependencyInjection
     );
 
     services
-    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<PostgresDbContext>()
     .AddDefaultTokenProviders();
 
