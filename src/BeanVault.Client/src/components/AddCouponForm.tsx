@@ -8,6 +8,7 @@ import { AddCouponFormState } from '@/types/AddCouponFormState';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useReducer } from 'react';
+import { toast } from 'react-hot-toast';
 import styles from './AddCouponForm.module.css';
 
 export default function AddCouponForm() {
@@ -141,9 +142,16 @@ export default function AddCouponForm() {
       return;
     }
 
-    const { addCoupon } = couponService({ client: fetchClient() });
-    await addCoupon({ newCoupon: formData });
-    router.push('coupons');
+    try {
+      const { addCoupon } = couponService({ client: fetchClient() });
+      await addCoupon({ newCoupon: formData });
+      router.push('coupons');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   }
 
   return (

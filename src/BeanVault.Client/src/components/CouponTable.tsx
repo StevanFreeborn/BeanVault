@@ -4,6 +4,7 @@ import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
 import { Coupon } from '@/types/Coupon';
 import { MouseEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import styles from './CouponTable.module.css';
 
@@ -22,11 +23,21 @@ export default function CouponTable({
   async function handleDeleteButtonClick(e: MouseEvent<HTMLButtonElement>) {
     const { deleteCoupon } = couponService({ client: fetchClient() });
     const id = e.currentTarget.dataset.couponId;
+
     if (id == undefined) {
       return;
     }
-    await deleteCoupon({ id });
-    setCoupons(coupons.filter(c => c.id !== id));
+
+    try {
+      await deleteCoupon({ id });
+      setCoupons(coupons.filter(c => c.id !== id));
+      toast.success('Coupon deleted');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   }
 
   return (

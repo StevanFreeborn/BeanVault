@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 import './globals.css';
 
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar />
         <main className="main-container">{children}</main>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
