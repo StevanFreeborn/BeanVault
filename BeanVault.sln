@@ -15,6 +15,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.CouponService.Infrastructure", "src\BeanVault.Services\BeanVault.Services.CouponService\BeanVault.Services.CouponService.Infrastructure\BeanVault.Services.CouponService.Infrastructure.csproj", "{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BeanVault.Services.AuthService", "BeanVault.Services.AuthService", "{5184B6F9-1736-451E-852A-6A7CD0D4DC29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.AuthService.API", "src\BeanVault.Services\BeanVault.Services.AuthService\BeanVault.Services.AuthService.API\BeanVault.Services.AuthService.API.csproj", "{F03428E0-A537-40F6-98BE-85A2449CEF7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.AuthService.Core", "src\BeanVault.Services\BeanVault.Services.AuthService\BeanVault.Services.AuthService.Core\BeanVault.Services.AuthService.Core.csproj", "{7642D1D6-C925-4253-9101-31EA1942B797}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanVault.Services.AuthService.Infrastructure", "src\BeanVault.Services\BeanVault.Services.AuthService\BeanVault.Services.AuthService.Infrastructure\BeanVault.Services.AuthService.Infrastructure.csproj", "{7701F719-C2B0-42A5-9B0F-82084E8E3BD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +44,18 @@ Global
 		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F03428E0-A537-40F6-98BE-85A2449CEF7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03428E0-A537-40F6-98BE-85A2449CEF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03428E0-A537-40F6-98BE-85A2449CEF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03428E0-A537-40F6-98BE-85A2449CEF7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7642D1D6-C925-4253-9101-31EA1942B797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7642D1D6-C925-4253-9101-31EA1942B797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7642D1D6-C925-4253-9101-31EA1942B797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7642D1D6-C925-4253-9101-31EA1942B797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7701F719-C2B0-42A5-9B0F-82084E8E3BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7701F719-C2B0-42A5-9B0F-82084E8E3BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7701F719-C2B0-42A5-9B0F-82084E8E3BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7701F719-C2B0-42A5-9B0F-82084E8E3BD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6FC13318-A6E2-40A6-830F-5D9CEF880706} = {95BF8592-F545-433D-BF10-3EF16A1A40F4}
@@ -43,5 +63,9 @@ Global
 		{10E40E8C-4109-49E3-B54F-A5FDFF680F66} = {443367F4-B61E-47DB-97D1-9AE8A38570B6}
 		{DCFA4E05-75E4-4FF9-83A3-D353D884E69F} = {443367F4-B61E-47DB-97D1-9AE8A38570B6}
 		{504D84CD-EA9F-40B0-A047-DD6CBC6DE319} = {443367F4-B61E-47DB-97D1-9AE8A38570B6}
+		{5184B6F9-1736-451E-852A-6A7CD0D4DC29} = {6FC13318-A6E2-40A6-830F-5D9CEF880706}
+		{F03428E0-A537-40F6-98BE-85A2449CEF7E} = {5184B6F9-1736-451E-852A-6A7CD0D4DC29}
+		{7642D1D6-C925-4253-9101-31EA1942B797} = {5184B6F9-1736-451E-852A-6A7CD0D4DC29}
+		{7701F719-C2B0-42A5-9B0F-82084E8E3BD7} = {5184B6F9-1736-451E-852A-6A7CD0D4DC29}
 	EndGlobalSection
 EndGlobal
