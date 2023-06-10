@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Identity.Core;
+
 namespace BeanVault.Services.AuthService.Infrastructure.DependencyInjection;
 
 public static class DependencyInjection
@@ -6,9 +8,16 @@ public static class DependencyInjection
   {
     services.AddDbContext<PostgresDbContext>(
       options => options.UseNpgsql(
-        config.GetConnectionString(nameof(PostgresDbContext))
-      )
+        config.GetConnectionString(nameof(PostgresDbContext)),
+        options => options.MigrationsAssembly(typeof(PostgresDbContext).Assembly.FullName)
+      ),
+      ServiceLifetime.Transient
     );
+
+    services
+    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<PostgresDbContext>()
+    .AddDefaultTokenProviders();
 
     var db = services
     .BuildServiceProvider()
