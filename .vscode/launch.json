@@ -37,7 +37,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.AuthService.API/bin/Debug/net7.0/BeanVault.Services.AuthService.API.dll",
+      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.AuthService/BeanVault.Services.AuthService.API/bin/Debug/net7.0/BeanVault.Services.AuthService.API.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.AuthService/BeanVault.Services.AuthService.API/",
       "stopAtEntry": false,
