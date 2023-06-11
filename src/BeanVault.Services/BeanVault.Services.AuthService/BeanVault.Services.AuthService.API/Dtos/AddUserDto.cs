@@ -1,3 +1,4 @@
+
 namespace BeanVault.Services.AuthService.API.Dtos;
 
 public class AddUserDto
@@ -15,7 +16,19 @@ public class AddUserDto
   public string PhoneNumber { get; set; } = string.Empty;
 
   [Required]
-  [MinLength(8)]
-  [MaxLength(150)]
+  [UserPassword]
   public string Password { get; set; } = string.Empty;
+
+  public ApplicationUser ToApplicationUser()
+  {
+    return new ApplicationUser
+    {
+      UserName = Email,
+      Email = Email,
+      NormalizedEmail = Email.ToLower(),
+      Name = Name,
+      PhoneNumber = PhoneNumber,
+      Password = Password,
+    };
+  }
 }

@@ -1,3 +1,5 @@
+using BeanVault.Services.AuthService.Infrastructure.Data.Postgres.Repositories;
+
 using Microsoft.Extensions.Identity.Core;
 
 namespace BeanVault.Services.AuthService.Infrastructure.DependencyInjection;
@@ -13,6 +15,8 @@ public static class DependencyInjection
       ),
       ServiceLifetime.Transient
     );
+
+    services.AddScoped<IUserRepository, PostgresUserRepository>();
 
     services
     .AddIdentity<ApplicationUser, IdentityRole>()
