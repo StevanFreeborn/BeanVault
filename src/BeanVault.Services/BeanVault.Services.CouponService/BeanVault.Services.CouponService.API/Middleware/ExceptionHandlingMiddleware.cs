@@ -1,10 +1,10 @@
 namespace BeanVault.Services.CouponService.API.Middleware;
 
-public class ErrorHandling
+public class ExceptionHandlingMiddleware
 {
   private readonly RequestDelegate _next;
 
-  public ErrorHandling(RequestDelegate next)
+  public ExceptionHandlingMiddleware(RequestDelegate next)
   {
     _next = next;
   }
