@@ -4,10 +4,16 @@ public class UserService : IUserService
 {
   private readonly IUserRepository _userRepository;
   private readonly UserManager<ApplicationUser> _userManager;
-  public UserService(IUserRepository userRepository, UserManager<ApplicationUser> userManager)
+  private readonly RoleManager<IdentityRole> _roleManager;
+  public UserService(
+    IUserRepository userRepository,
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager
+  )
   {
     _userRepository = userRepository;
     _userManager = userManager;
+    _roleManager = roleManager;
   }
 
   public async Task<ApplicationUser> AddUserAsync(ApplicationUser user)
@@ -80,5 +86,38 @@ public class UserService : IUserService
   public async Task<ApplicationUser?> GetUserByIdAsync(string id)
   {
     return await _userRepository.GetUserByIdAsync(id);
+  }
+
+  public async Task AddRoleToUserAsync(string userId, string roleName)
+  {
+    var user = await _userRepository.GetUserByIdAsync(userId);
+
+    if (user is null)
+    {
+      throw new ApplicationException($"Unable to find user with id: {userId}");
+    }
+
+    var doesRoleExist = await _roleManager.RoleExistsAsync(roleName);
+
+    if (doesRoleExist == false)
+    {
+      var roleCreationResult = await _roleManager.CreateAsync(new IdentityRole(roleName));
+
+      if (roleCreationResult.Succeeded == false)
+      {
+        throw new AggregateException(
+          roleCreationResult.Errors.Select(e => new ApplicationException(e.Description)).ToList()
+        );
+      }
+    }
+
+    var roleAssignmentResult = await _userManager.AddToRoleAsync(user, roleName);
+
+    if (roleAssignmentResult.Succeeded == false)
+    {
+      throw new AggregateException(
+        roleAssignmentResult.Errors.Select(e => new ApplicationException(e.Description)).ToList()
+      );
+    }
   }
 }

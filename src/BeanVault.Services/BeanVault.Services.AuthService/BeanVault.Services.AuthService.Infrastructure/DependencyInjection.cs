@@ -13,7 +13,7 @@ public static class DependencyInjection
         config.GetConnectionString(nameof(PostgresDbContext)),
         options => options.MigrationsAssembly(typeof(PostgresDbContext).Assembly.FullName)
       ),
-      ServiceLifetime.Transient
+      ServiceLifetime.Scoped
     );
 
     services.AddScoped<IUserRepository, PostgresUserRepository>();

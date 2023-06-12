@@ -27,7 +27,6 @@ public class UsersController : ControllerBase
     }
 
     var userDto = new UserDto(user);
-
     return Ok(userDto);
   }
 
@@ -53,5 +52,13 @@ public class UsersController : ControllerBase
     var token = _jwtTokenService.GenerateToken(loggedInUser);
     var authUserDto = new AuthUserDto(loggedInUser, token);
     return Ok(authUserDto);
+  }
+
+  [MapToApiVersion("1.0")]
+  [HttpPost("add-role")]
+  public async Task<IActionResult> AddRole(AddRoleToUserDto addRoleToUserDto)
+  {
+    await _userService.AddRoleToUserAsync(addRoleToUserDto.UserId, addRoleToUserDto.RoleName);
+    return Ok();
   }
 }
