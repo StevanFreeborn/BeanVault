@@ -7,3 +7,5 @@ global using BeanVault.Services.CouponService.Infrastructure.DependencyInjection
 
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Versioning;
+global using System.Net;
+global using System.Text.Json;
