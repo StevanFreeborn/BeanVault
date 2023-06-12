@@ -10,29 +10,26 @@ public class PostgresUserRepository : IUserRepository
     _userManager = userManager;
   }
 
-  public async Task<ApplicationUser> AddUserAsync(ApplicationUser user)
+  public async Task<IdentityResult?> AddUserAsync(ApplicationUser user)
   {
-    var result = await _userManager.CreateAsync(user, user.Password!);
-
-    if (result.Succeeded == false)
-    {
-      throw new AggregateException(
-        result.Errors.Select(e => new ApplicationException(e.Description)).ToList()
-      );
-    }
-
-    var createdUser = await _userManager.FindByEmailAsync(user.Email!);
-
-    if (createdUser == null)
-    {
-      throw new ApplicationException("Unable to find created user");
-    }
-
-    return createdUser;
+    return await _userManager.CreateAsync(user, user.Password!);
   }
 
   public async Task<ApplicationUser?> GetUserByIdAsync(string id)
   {
     return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+  }
+
+  public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
+  {
+    return await _userManager.FindByEmailAsync(email);
+  }
+
+  public async Task<ApplicationUser?> GetUserByUsernameAsync(string username)
+  {
+    return await _context.Users.FirstOrDefaultAsync(
+      u => u.UserName != null &&
+      u.UserName.ToLower() == username.ToLower()
+    );
   }
 }
