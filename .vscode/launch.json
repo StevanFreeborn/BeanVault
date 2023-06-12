@@ -3,8 +3,7 @@
   "compounds": [
     {
       "name": "Launch Services",
-      "configurations": ["Launch AuthService", "Launch CouponService"],
-      "preLaunchTask": "build"
+      "configurations": ["Launch AuthService", "Launch CouponService"]
     }
   ],
   "configurations": [
@@ -12,7 +11,7 @@
       "name": "Launch CouponService",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-coupon-service",
       "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/bin/Debug/net7.0/BeanVault.Services.CouponService.API.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/",
@@ -36,7 +35,7 @@
       "name": "Launch AuthService",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-auth-service",
       "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.AuthService/BeanVault.Services.AuthService.API/bin/Debug/net7.0/BeanVault.Services.AuthService.API.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.AuthService/BeanVault.Services.AuthService.API/",
