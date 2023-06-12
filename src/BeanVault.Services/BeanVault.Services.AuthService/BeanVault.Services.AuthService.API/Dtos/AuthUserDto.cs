@@ -9,8 +9,9 @@ public class AuthUserDto
   {
   }
 
-  public AuthUserDto(ApplicationUser user)
+  public AuthUserDto(ApplicationUser user, string token)
   {
     User = new UserDto(user);
+    Token = token;
   }
 }

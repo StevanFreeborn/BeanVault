@@ -7,10 +7,12 @@ namespace BeanVault.Services.AuthService.API.Controllers;
 public class UsersController : ControllerBase
 {
   private readonly IUserService _userService;
+  private readonly IJwtTokenService _jwtTokenService;
 
-  public UsersController(IUserService userService)
+  public UsersController(IUserService userService, IJwtTokenService jwtTokenService)
   {
     _userService = userService;
+    _jwtTokenService = jwtTokenService;
   }
 
   [MapToApiVersion("1.0")]
@@ -48,7 +50,8 @@ public class UsersController : ControllerBase
   {
     var user = loginUserDto.ToApplicationUser();
     var loggedInUser = await _userService.LogInUserAsync(user);
-    var authUserDto = new AuthUserDto(loggedInUser);
+    var token = _jwtTokenService.GenerateToken(loggedInUser);
+    var authUserDto = new AuthUserDto(loggedInUser, token);
     return Ok(authUserDto);
   }
 }

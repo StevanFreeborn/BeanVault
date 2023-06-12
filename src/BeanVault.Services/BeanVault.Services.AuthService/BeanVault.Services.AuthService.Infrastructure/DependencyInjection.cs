@@ -4,6 +4,10 @@ public static class DependencyInjection
 {
   public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager config)
   {
+    services.Configure<JwtOptions>(
+      config.GetSection(nameof(JwtOptions))
+    );
+
     services.AddDbContext<PostgresDbContext>(
       options => options.UseNpgsql(
         config.GetConnectionString(nameof(PostgresDbContext)),
@@ -14,6 +18,7 @@ public static class DependencyInjection
 
     services.AddScoped<IUserRepository, PostgresUserRepository>();
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IJwtTokenService, JwtTokenService>();
 
     services
     .AddIdentity<ApplicationUser, IdentityRole>()

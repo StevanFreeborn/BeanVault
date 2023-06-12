@@ -1,4 +1,4 @@
-namespace BeanVault.Services.AuthService.API.Models;
+namespace BeanVault.Services.AuthService.Infrastructure.Models;
 
 public class JwtOptions
 {

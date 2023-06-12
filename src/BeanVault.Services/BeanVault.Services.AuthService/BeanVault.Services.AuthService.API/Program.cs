@@ -1,10 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-builder.Services.Configure<JwtOptions>(
-  config.GetSection(nameof(JwtOptions))
-);
-
 builder.Services.AddInfrastructure(config);
 
 builder.Services.AddControllers();
