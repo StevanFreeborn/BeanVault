@@ -6,6 +6,9 @@ global using BeanVault.Services.AuthService.API.Validation;
 global using BeanVault.Services.AuthService.Infrastructure.DependencyInjection;
 global using BeanVault.Services.AuthService.Infrastructure.Interfaces;
 global using BeanVault.Services.AuthService.Infrastructure.Models;
+global using BeanVault.Services.AuthService.API.Middleware;
 
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Versioning;
+global using System.Net;
+global using System.Text.Json;
