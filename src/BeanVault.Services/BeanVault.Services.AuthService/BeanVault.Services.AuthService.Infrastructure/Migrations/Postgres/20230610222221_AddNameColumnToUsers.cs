@@ -4,26 +4,26 @@
 
 namespace BeanVault.Services.AuthService.Infrastructure.Migrations.Postgres
 {
+  /// <inheritdoc />
+  public partial class AddNameColumnToUsers : Migration
+  {
     /// <inheritdoc />
-    public partial class AddNameColumnToUsers : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "AspNetUsers",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "AspNetUsers");
-        }
+      migrationBuilder.AddColumn<string>(
+          name: "Name",
+          table: "AspNetUsers",
+          type: "text",
+          nullable: false,
+          defaultValue: "");
     }
+
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.DropColumn(
+          name: "Name",
+          table: "AspNetUsers");
+    }
+  }
 }

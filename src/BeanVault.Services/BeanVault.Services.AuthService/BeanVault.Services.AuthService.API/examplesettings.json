@@ -8,5 +8,10 @@
   "ConnectionStrings": {
     "PostgresDbContext": "Postgres"
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "JwtOptions": {
+    "Secret": "Secret",
+    "Issuer": "Issuer",
+    "Audience": "Audience"
+  }
 }
