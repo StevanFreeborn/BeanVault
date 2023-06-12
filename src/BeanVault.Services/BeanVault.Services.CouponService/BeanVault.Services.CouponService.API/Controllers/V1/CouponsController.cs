@@ -68,30 +68,17 @@ public class CouponsController : ControllerBase
   public async Task<IActionResult> UpdateCoupon(CouponDto couponDto)
   {
     var updatedCoupon = await _couponRepository.UpdateCouponByIdAsync(couponDto.ToCoupon());
-
-    if (updatedCoupon is null)
-    {
-      return NotFound();
-    }
-
     return Ok(new CouponDto(updatedCoupon));
   }
 
   [MapToApiVersion("1.0")]
   [HttpDelete("{id}")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> DeleteCouponById(string id)
   {
-    var deletedCoupon = await _couponRepository.DeleteCouponByIdAsync(id);
-
-    if (deletedCoupon is null)
-    {
-      return NotFound();
-    }
-
+    await _couponRepository.DeleteCouponByIdAsync(id);
     return NoContent();
   }
 }

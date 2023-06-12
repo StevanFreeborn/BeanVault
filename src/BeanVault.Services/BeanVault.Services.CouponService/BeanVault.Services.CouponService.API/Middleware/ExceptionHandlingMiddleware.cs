@@ -28,6 +28,7 @@ public class ExceptionHandlingMiddleware
   {
     var code = ex switch
     {
+      ModelNotFoundException => HttpStatusCode.NotFound,
       _ => HttpStatusCode.InternalServerError,
     };
 

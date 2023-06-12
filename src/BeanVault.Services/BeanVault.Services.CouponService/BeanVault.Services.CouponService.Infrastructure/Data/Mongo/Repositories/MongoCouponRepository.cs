@@ -1,3 +1,5 @@
+using BeanVault.Services.CouponService.Core.Exceptions;
+
 namespace BeanVault.Services.CouponService.Infrastructure.Data.Mongo.Repositories;
 
 public class MongoCouponRepository : ICouponRepository
@@ -31,9 +33,9 @@ public class MongoCouponRepository : ICouponRepository
     return await _context.Coupons.Find(c => c.Id == id).FirstOrDefaultAsync();
   }
 
-  public async Task<Coupon?> UpdateCouponByIdAsync(Coupon coupon)
+  public async Task<Coupon> UpdateCouponByIdAsync(Coupon coupon)
   {
-    return await _context.Coupons.FindOneAndReplaceAsync(
+    var updatedCoupon = await _context.Coupons.FindOneAndReplaceAsync(
       c => c.Id == coupon.Id,
       coupon,
       new()
@@ -41,10 +43,22 @@ public class MongoCouponRepository : ICouponRepository
         ReturnDocument = ReturnDocument.After,
       }
     );
+
+    if (updatedCoupon is null)
+    {
+      throw new ModelNotFoundException($"Unable to update coupon with id: {coupon.Id}");
+    }
+
+    return updatedCoupon;
   }
 
-  public async Task<Coupon?> DeleteCouponByIdAsync(string id)
+  public async Task DeleteCouponByIdAsync(string id)
   {
-    return await _context.Coupons.FindOneAndDeleteAsync(c => c.Id == id);
+    var deletedCoupon = await _context.Coupons.FindOneAndDeleteAsync(c => c.Id == id);
+
+    if (deletedCoupon is null)
+    {
+      throw new ModelNotFoundException($"Unable to delete coupon with id: {id}");
+    }
   }
 }
