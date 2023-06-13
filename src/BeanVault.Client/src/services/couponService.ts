@@ -1,6 +1,6 @@
-import { AddCouponFormData } from '@/types/AddCouponFormData';
 import { Coupon } from '@/types/Coupon';
 import { FetchClientType } from '@/types/FetchClientType';
+import { FormData } from '@/types/FormData';
 
 export function couponService({ client }: { client: FetchClientType }) {
   const COUPON_SERVICE_URL = process.env.NEXT_PUBLIC_COUPON_SERVICE_URL;
@@ -18,7 +18,7 @@ export function couponService({ client }: { client: FetchClientType }) {
   async function addCoupon({
     newCoupon,
   }: {
-    newCoupon: AddCouponFormData;
+    newCoupon: FormData;
   }): Promise<Coupon> {
     const res = await client.post(
       `${COUPON_SERVICE_URL}/api/coupons`,

@@ -2,9 +2,9 @@
 
 import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
-import { AddCouponFormAction } from '@/types/AddCouponFormAction';
-import { AddCouponFormData } from '@/types/AddCouponFormData';
-import { AddCouponFormState } from '@/types/AddCouponFormState';
+import { FormAction } from '@/types/FormAction';
+import { FormData } from '@/types/FormData';
+import { FormState } from '@/types/FormState';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useReducer } from 'react';
@@ -14,7 +14,7 @@ import styles from './AddCouponForm.module.css';
 export default function AddCouponForm() {
   const router = useRouter();
 
-  const initialFormState: AddCouponFormState = {
+  const initialFormState: FormState = {
     couponCode: {
       labelText: 'Coupon Code',
       type: 'text',
@@ -50,7 +50,7 @@ export default function AddCouponForm() {
     },
   };
 
-  function formReducer(state: AddCouponFormState, action: AddCouponFormAction) {
+  function formReducer(state: FormState, action: FormAction) {
     switch (action.type) {
       case 'updateValue': {
         const field = state[action.payload.field];
@@ -87,15 +87,12 @@ export default function AddCouponForm() {
     e.preventDefault();
     dispatch({ type: 'resetAllErrors' });
 
-    const formData: AddCouponFormData = Object.keys(formState).reduce(
-      (prev, curr) => {
-        return {
-          ...prev,
-          [curr]: formState[curr].value,
-        };
-      },
-      {}
-    );
+    const formData: FormData = Object.keys(formState).reduce((prev, curr) => {
+      return {
+        ...prev,
+        [curr]: formState[curr].value,
+      };
+    }, {});
 
     const formDataErrors = Object.keys(formData)
       .map(field => {
