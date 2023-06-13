@@ -6,9 +6,10 @@ import { FormState } from '@/types/FormState';
 import { formReducer, getFormData, getFormErrors } from '@/utils/forms';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useReducer } from 'react';
+import { ChangeEvent, FormEvent, useReducer } from 'react';
 import { toast } from 'react-hot-toast';
 import styles from './AddCouponForm.module.css';
+import FormField from './FormField';
 
 export default function AddCouponForm() {
   const router = useRouter();
@@ -51,6 +52,13 @@ export default function AddCouponForm() {
 
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    dispatch({
+      type: 'updateValue',
+      payload: { field: e.target.name, value: e.target.value },
+    });
+  }
+
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -90,30 +98,11 @@ export default function AddCouponForm() {
         {Object.keys(formState).map(key => {
           const formField = formState[key];
           return (
-            <div key={key} className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor={key}>
-                {formField.labelText}
-              </label>
-              <input
-                {...formField.inputProps}
-                id={key}
-                name={key}
-                className={styles.formControl}
-                type={formField.type}
-                value={formField.value}
-                onChange={e => {
-                  dispatch({
-                    type: 'updateValue',
-                    payload: { field: e.target.name, value: e.target.value },
-                  });
-                }}
-              />
-              <ul className={styles.error}>
-                {formField.errors.map((error, i) => (
-                  <li key={i}>{error}</li>
-                ))}
-              </ul>
-            </div>
+            <FormField
+              key={key}
+              formField={formField}
+              onChangeHandler={handleInputChange}
+            />
           );
         })}
         <div className={styles.actionContainer}>

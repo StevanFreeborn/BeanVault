@@ -2,7 +2,8 @@
 
 import { FormState } from '@/types/FormState';
 import { formReducer } from '@/utils/forms';
-import { FormEvent, useReducer } from 'react';
+import { ChangeEvent, FormEvent, useReducer } from 'react';
+import FormField from './FormField';
 import styles from './LoginForm.module.css';
 
 export default function LoginForm() {
@@ -33,6 +34,13 @@ export default function LoginForm() {
 
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    dispatch({
+      type: 'updateValue',
+      payload: { field: e.target.name, value: e.target.value },
+    });
+  }
+
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // TODO: wire up login form
@@ -51,30 +59,11 @@ export default function LoginForm() {
         {Object.keys(formState).map(key => {
           const formField = formState[key];
           return (
-            <div key={key} className={styles.formGroup}>
-              <label className={styles.formLabel} htmlFor={key}>
-                {formField.labelText}
-              </label>
-              <input
-                {...formField.inputProps}
-                id={key}
-                name={key}
-                className={styles.formControl}
-                type={formField.type}
-                value={formField.value}
-                onChange={e => {
-                  dispatch({
-                    type: 'updateValue',
-                    payload: { field: e.target.name, value: e.target.value },
-                  });
-                }}
-              />
-              <ul className={styles.error}>
-                {formField.errors.map((error, i) => (
-                  <li key={i}>{error}</li>
-                ))}
-              </ul>
-            </div>
+            <FormField
+              key={key}
+              formField={formField}
+              onChangeHandler={handleInputChange}
+            />
           );
         })}
         <div className={styles.actionContainer}>

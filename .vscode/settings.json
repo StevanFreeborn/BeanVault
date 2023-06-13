@@ -1,4 +1,12 @@
 {
-  "cSpell.words": ["Bson", "Dtos", "flexbox", "flexbugs", "Npgsql", "toastify"],
+  "cSpell.words": [
+    "astrongpassword",
+    "Bson",
+    "Dtos",
+    "flexbox",
+    "flexbugs",
+    "Npgsql",
+    "toastify"
+  ],
   "dotnet.defaultSolution": "BeanVault.sln"
 }
