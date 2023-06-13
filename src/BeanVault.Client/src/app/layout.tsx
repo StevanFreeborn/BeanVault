@@ -1,3 +1,6 @@
+'use client';
+
+import { AppProviders } from '@/providers/AppProviders';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
@@ -18,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        <main className="main-container">{children}</main>
-        <Toaster position="top-right" />
+        <AppProviders>
+          <Navbar />
+          <main className="main-container">{children}</main>
+          <Toaster position="top-right" />
+        </AppProviders>
       </body>
     </html>
   );

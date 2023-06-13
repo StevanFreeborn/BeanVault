@@ -52,8 +52,8 @@ public class UsersController : ControllerBase
   {
     var user = loginUserDto.ToApplicationUser();
     var loggedInUser = await _userService.LogInUserAsync(user);
-    var token = _jwtTokenService.GenerateToken(loggedInUser);
-    var authUserDto = new AuthUserDto(loggedInUser, token);
+    var (expiration, token) = _jwtTokenService.GenerateToken(loggedInUser);
+    var authUserDto = new AuthUserDto(loggedInUser, token, expiration);
     return Ok(authUserDto);
   }
 

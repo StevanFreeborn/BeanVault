@@ -12,9 +12,10 @@ public class JwtTokenService : IJwtTokenService
   /// Generates a token with claims for given user.
   /// </summary>
   /// <param name="user"></param>
+  /// <returns>The tokens expiration.</returns>
   /// <returns>The generated token.</returns>
   /// <exception cref="InvalidModelException"></exception>
-  public string GenerateToken(ApplicationUser user)
+  public (DateTime tokenExpiration, string token) GenerateToken(ApplicationUser user)
   {
     var tokenHandler = new JwtSecurityTokenHandler();
     var key = Encoding.ASCII.GetBytes(_options.Secret);
@@ -36,16 +37,18 @@ public class JwtTokenService : IJwtTokenService
       new Claim(JwtRegisteredClaimNames.Name, user.UserName)
     };
 
+    var expiration = DateTime.UtcNow.AddDays(7);
+
     var tokenDescriptor = new SecurityTokenDescriptor
     {
       Audience = _options.Audience,
       Issuer = _options.Issuer,
       Subject = new ClaimsIdentity(claims),
-      Expires = DateTime.UtcNow.AddDays(7),
+      Expires = expiration,
       SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
     };
 
     var token = tokenHandler.CreateToken(tokenDescriptor);
-    return tokenHandler.WriteToken(token);
+    return (expiration, tokenHandler.WriteToken(token));
   }
 }

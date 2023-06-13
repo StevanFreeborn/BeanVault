@@ -1,11 +1,13 @@
 'use client';
 
+import { useUserContext } from '@/hooks/useUserContext';
 import Link from 'next/link';
 import { useState } from 'react';
 import { RxChevronDown } from 'react-icons/rx';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
+  const { isLoading, isLoggedIn } = useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
@@ -48,17 +50,24 @@ export default function Navbar() {
       </div>
       <div className={styles.navbarRight}>
         <ul className={styles.nav}>
-          <li className={styles.navItem}>
-            <Link href="register">Register</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="login">Login</Link>
-          </li>
-          <li className={styles.navItem}>
-            <button type="button" className={styles.logoutButton}>
-              Logout
-            </button>
-          </li>
+          {isLoggedIn() ? (
+            <>
+              <li className={styles.navItem}>
+                <button type="button" className={styles.logoutButton}>
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className={styles.navItem}>
+                <Link href="register">Register</Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link href="login">Login</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
