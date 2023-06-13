@@ -52,10 +52,12 @@ export default function Navbar() {
             <Link href="register">Register</Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="register">Login</Link>
+            <Link href="login">Login</Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="register">Logout</Link>
+            <button type="button" className={styles.logoutButton}>
+              Logout
+            </button>
           </li>
         </ul>
       </div>
