@@ -8,6 +8,12 @@ public class JwtTokenService : IJwtTokenService
     _options = options.Value;
   }
 
+  /// <summary>
+  /// Generates a token with claims for given user.
+  /// </summary>
+  /// <param name="user"></param>
+  /// <returns>The generated token.</returns>
+  /// <exception cref="InvalidModelException"></exception>
   public string GenerateToken(ApplicationUser user)
   {
     var tokenHandler = new JwtSecurityTokenHandler();
@@ -15,12 +21,12 @@ public class JwtTokenService : IJwtTokenService
 
     if (user.Email is null)
     {
-      throw new ArgumentException("User does not have an email");
+      throw new InvalidModelException("User does not have an email");
     }
 
     if (user.UserName is null)
     {
-      throw new ArgumentException("User does not have a username");
+      throw new InvalidModelException("User does not have a username");
     }
 
     var claims = new List<Claim>

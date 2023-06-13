@@ -16,6 +16,11 @@ public class MongoCouponRepository : ICouponRepository
     return coupon;
   }
 
+  /// <summary>
+  /// Gets a list of coupons based on given query filter.
+  /// </summary>
+  /// <param name="query"></param>
+  /// <returns>A list of coupons</returns>
   public async Task<List<Coupon>> GetCouponsAsync(CouponQuery query)
   {
     var coupons = _context.Coupons.AsQueryable();
@@ -28,11 +33,30 @@ public class MongoCouponRepository : ICouponRepository
     return await coupons.ToListAsync();
   }
 
-  public async Task<Coupon?> GetCouponByIdAsync(string id)
+  /// <summary>
+  /// Gets a coupon with the given id.
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns>A coupon</returns>
+  /// <exception cref="ModelNotFoundException"></exception>
+  public async Task<Coupon> GetCouponByIdAsync(string id)
   {
-    return await _context.Coupons.Find(c => c.Id == id).FirstOrDefaultAsync();
+    var coupon = await _context.Coupons.Find(c => c.Id == id).FirstOrDefaultAsync();
+
+    if (coupon is null)
+    {
+      throw new ModelNotFoundException($"Unable to find coupon with id: {id}");
+    }
+
+    return coupon;
   }
 
+  /// <summary>
+  /// Updates the coupon with given state.
+  /// </summary>
+  /// <param name="coupon"></param>
+  /// <returns>The updated coupon.</returns>
+  /// <exception cref="ModelNotFoundException"></exception>
   public async Task<Coupon> UpdateCouponByIdAsync(Coupon coupon)
   {
     var updatedCoupon = await _context.Coupons.FindOneAndReplaceAsync(
@@ -52,6 +76,11 @@ public class MongoCouponRepository : ICouponRepository
     return updatedCoupon;
   }
 
+  /// <summary>
+  /// Deletes the coupon with the given id.
+  /// </summary>
+  /// <param name="id"></param>
+  /// <exception cref="ModelNotFoundException"></exception>
   public async Task DeleteCouponByIdAsync(string id)
   {
     var deletedCoupon = await _context.Coupons.FindOneAndDeleteAsync(c => c.Id == id);

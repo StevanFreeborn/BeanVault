@@ -8,6 +8,7 @@ global using BeanVault.Services.AuthService.Infrastructure.Data.Postgres.Reposit
 global using BeanVault.Services.AuthService.Infrastructure.Interfaces;
 global using BeanVault.Services.AuthService.Infrastructure.Models;
 global using BeanVault.Services.AuthService.Infrastructure.Services;
+global using BeanVault.Services.AuthService.Core.Exceptions;
 
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

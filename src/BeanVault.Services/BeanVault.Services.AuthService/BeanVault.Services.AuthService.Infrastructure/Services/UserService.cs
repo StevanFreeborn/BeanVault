@@ -16,18 +16,26 @@ public class UserService : IUserService
     _roleManager = roleManager;
   }
 
+  /// <Summary>
+  /// Adds the given user.
+  /// </Summary>
+  /// <param name="user">The user to be added</param>
+  /// <returns>The created user</returns>
+  /// <exception cref="InvalidModelException"></exception>
+  /// <exception cref="ApplicationException"></exception>
+  /// <exception cref="AggregateException"></exception>
   public async Task<ApplicationUser> AddUserAsync(ApplicationUser user)
   {
     if (user.Email == null)
     {
-      throw new ApplicationException("No email provided for user");
+      throw new InvalidModelException("No email provided for user");
     }
 
     var existingUser = await _userRepository.GetUserByEmailAsync(user.Email);
 
     if (existingUser != null)
     {
-      throw new ApplicationException($"User already exists with email: {user.Email}");
+      throw new InvalidModelException($"User already exists with email: {user.Email}");
     }
 
     var result = await _userRepository.AddUserAsync(user);
@@ -54,47 +62,75 @@ public class UserService : IUserService
     return createdUser;
   }
 
+  /// <summary>
+  /// Logs in the given user.
+  /// </summary>
+  /// <param name="user"></param>
+  /// <returns></returns>
+  /// <exception cref="InvalidModelException"></exception>
+  /// <exception cref="InvalidLoginException"></exception>
   public async Task<ApplicationUser> LogInUserAsync(ApplicationUser user)
   {
     if (user.UserName == null)
     {
-      throw new ApplicationException("No username provided for user");
+      throw new InvalidModelException("No username provided for user");
     }
 
     if (user.Password == null)
     {
-      throw new ApplicationException("No password provided for user");
+      throw new InvalidModelException("No password provided for user");
     }
 
     var userLoggingIn = await _userRepository.GetUserByUsernameAsync(user.UserName);
 
     if (userLoggingIn is null)
     {
-      throw new ApplicationException($"No user found with username: {user.UserName}");
+      throw new InvalidLoginException($"Invalid username or password");
     }
 
     var isCorrectPassword = await _userManager.CheckPasswordAsync(userLoggingIn, user.Password);
 
     if (isCorrectPassword is false)
     {
-      throw new ApplicationException("Invalid password");
+      throw new InvalidLoginException("Invalid username or password");
     }
 
     return userLoggingIn;
   }
 
-  public async Task<ApplicationUser?> GetUserByIdAsync(string id)
+  /// <summary>
+  /// Gets a user with the given id.
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
+  /// <exception cref="ModelNotFoundException"></exception>
+  public async Task<ApplicationUser> GetUserByIdAsync(string id)
   {
-    return await _userRepository.GetUserByIdAsync(id);
+    var user = await _userRepository.GetUserByIdAsync(id);
+
+    if (user is null)
+    {
+      throw new ModelNotFoundException($"Unable to find user with id: {id}");
+    }
+
+    return user;
   }
 
+  /// <summary>
+  /// Adds a role to the user. If the given role doesn't exist it will create it.
+  /// </summary>
+  /// <param name="userId"></param>
+  /// <param name="roleName"></param>
+  /// <returns></returns>
+  /// <exception cref="ModelNotFoundException"></exception>
+  /// <exception cref="AggregateException"></exception>
   public async Task AddRoleToUserAsync(string userId, string roleName)
   {
     var user = await _userRepository.GetUserByIdAsync(userId);
 
     if (user is null)
     {
-      throw new ApplicationException($"Unable to find user with id: {userId}");
+      throw new ModelNotFoundException($"Unable to find user with id: {userId}");
     }
 
     var doesRoleExist = await _roleManager.RoleExistsAsync(roleName);

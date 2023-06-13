@@ -17,21 +17,21 @@ public class UsersController : ControllerBase
 
   [MapToApiVersion("1.0")]
   [HttpGet("{id}")]
+  [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetUserById(string id)
   {
     var user = await _userService.GetUserByIdAsync(id);
-
-    if (user == null)
-    {
-      return NotFound();
-    }
-
     var userDto = new UserDto(user);
     return Ok(userDto);
   }
 
   [MapToApiVersion("1.0")]
   [HttpPost("register")]
+  [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> Register(AddUserDto addUserDto)
   {
     var user = addUserDto.ToApplicationUser();
@@ -45,6 +45,9 @@ public class UsersController : ControllerBase
 
   [MapToApiVersion("1.0")]
   [HttpPost("login")]
+  [ProducesResponseType(typeof(AuthUserDto), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> Login(LoginUserDto loginUserDto)
   {
     var user = loginUserDto.ToApplicationUser();
@@ -56,6 +59,9 @@ public class UsersController : ControllerBase
 
   [MapToApiVersion("1.0")]
   [HttpPost("add-role")]
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> AddRole(AddRoleToUserDto addRoleToUserDto)
   {
     await _userService.AddRoleToUserAsync(addRoleToUserDto.UserId, addRoleToUserDto.RoleName);

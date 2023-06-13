@@ -32,11 +32,21 @@ public class ExceptionHandlingMiddleware
       _ => HttpStatusCode.InternalServerError,
     };
 
-    return new ProblemDetails
+    var problemDetails = new ProblemDetails
     {
       Status = (int) code,
       Title = "A problem occurred while processing the request",
       Detail = ex.Message,
     };
+
+    if (ex is AggregateException aggregateException)
+    {
+      problemDetails.Extensions.Add(
+        "errors",
+        aggregateException.InnerExceptions.Select(ex => ex.Message).ToList()
+      );
+    }
+
+    return problemDetails;
   }
 }

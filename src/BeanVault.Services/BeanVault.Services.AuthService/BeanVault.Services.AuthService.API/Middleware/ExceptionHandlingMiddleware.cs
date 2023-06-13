@@ -28,14 +28,27 @@ public class ExceptionHandlingMiddleware
   {
     var code = ex switch
     {
+      InvalidModelException
+      or InvalidLoginException => HttpStatusCode.BadRequest,
+      ModelNotFoundException => HttpStatusCode.NotFound,
       _ => HttpStatusCode.InternalServerError,
     };
 
-    return new ProblemDetails
+    var problemDetails = new ProblemDetails
     {
       Status = (int) code,
       Title = "A problem occurred while processing the request",
       Detail = ex.Message,
     };
+
+    if (ex is AggregateException aggregateException)
+    {
+      problemDetails.Extensions.Add(
+        "errors",
+        aggregateException.InnerExceptions.Select(ex => ex.Message).ToList()
+      );
+    }
+
+    return problemDetails;
   }
 }

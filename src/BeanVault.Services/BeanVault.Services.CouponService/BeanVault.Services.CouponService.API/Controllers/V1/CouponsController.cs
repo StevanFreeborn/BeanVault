@@ -34,12 +34,6 @@ public class CouponsController : ControllerBase
   public async Task<IActionResult> GetCouponById(string id)
   {
     var coupon = await _couponRepository.GetCouponByIdAsync(id);
-
-    if (coupon is null)
-    {
-      return NotFound();
-    }
-
     return Ok(new CouponDto(coupon));
   }
 
