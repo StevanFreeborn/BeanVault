@@ -28,23 +28,6 @@
   max-width: 500px;
 }
 
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.formLabel {
-  color: #a19fa5;
-}
-
-.formControl {
-  padding: 0.5rem;
-  border-radius: 5px;
-  font-size: 16px;
-  border: none;
-}
-
 .actionContainer {
   display: flex;
   gap: 1rem;
@@ -82,9 +65,4 @@
 .addButton:hover {
   background-color: #5eb15d;
   border-color: #5eb15d;
-}
-
-.error {
-  list-style: none;
-  color: #ff0000
 }
