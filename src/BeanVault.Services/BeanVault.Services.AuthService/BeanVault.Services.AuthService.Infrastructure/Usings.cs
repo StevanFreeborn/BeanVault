@@ -3,12 +3,12 @@ global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
 
+global using BeanVault.Services.AuthService.Core.Exceptions;
 global using BeanVault.Services.AuthService.Infrastructure.Data.Postgres;
 global using BeanVault.Services.AuthService.Infrastructure.Data.Postgres.Repositories;
 global using BeanVault.Services.AuthService.Infrastructure.Interfaces;
 global using BeanVault.Services.AuthService.Infrastructure.Models;
 global using BeanVault.Services.AuthService.Infrastructure.Services;
-global using BeanVault.Services.AuthService.Core.Exceptions;
 
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
