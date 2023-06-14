@@ -44,12 +44,14 @@ export function UserContextProvider({
   const [userState, dispatchUserAction] = useReducer(userStateReducer, null);
 
   useEffect(() => {
-    const initialState = initialUserState();
-
-    if (initialState !== null) {
+    const userState = initialUserState();
+    if (
+      userState !== null &&
+      new Date(userState.expiration).getTime() > Date.now()
+    ) {
       dispatchUserAction({
         type: 'login',
-        payload: { user: initialState },
+        payload: { user: userState },
       });
     }
 

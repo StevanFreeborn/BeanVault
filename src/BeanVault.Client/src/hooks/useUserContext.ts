@@ -11,20 +11,6 @@ export function useUserContext() {
 
   const { isLoading, userState, dispatchUserAction } = userContext;
 
-  function isLoggedIn() {
-    if (userState == null) {
-      return false;
-    }
-
-    const expirationTime = new Date(userState.expiration).getTime();
-
-    if (expirationTime < Date.now()) {
-      return false;
-    }
-
-    return true;
-  }
-
   function logUserIn({ user }: { user: AuthUser }) {
     dispatchUserAction({ type: 'login', payload: { user } });
   }
@@ -36,7 +22,6 @@ export function useUserContext() {
   return {
     isLoading,
     userState,
-    isLoggedIn,
     logUserIn,
     logUserOut,
   };
