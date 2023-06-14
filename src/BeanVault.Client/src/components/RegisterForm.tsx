@@ -1,8 +1,13 @@
 'use client';
 
+import { ValidationError } from '@/errors/validationError';
+import { fetchClient } from '@/http/fetchClient';
+import { authService } from '@/services/authService';
 import { FormState } from '@/types/FormState';
-import { formReducer } from '@/utils/forms';
-import { ChangeEvent, FormEvent, useReducer } from 'react';
+import { formReducer, getFormData, getFormErrors } from '@/utils/forms';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, FormEvent, useReducer, useState } from 'react';
+import toast from 'react-hot-toast';
 import FormField from './FormField';
 import styles from './RegisterForm.module.css';
 
@@ -52,6 +57,8 @@ export default function LoginForm() {
     },
   };
 
+  const router = useRouter();
+  const [formErrors, setFormErrors] = useState<string[]>([]);
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -61,16 +68,50 @@ export default function LoginForm() {
     });
   }
 
-  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: wire up login form
-    console.log(formState);
+
+    setFormErrors([]);
+    dispatch({ type: 'resetAllErrors' });
+    const formDataErrors = getFormErrors({ formState });
+
+    if (formDataErrors.length > 0) {
+      formDataErrors.forEach(error => {
+        dispatch({ type: 'updateErrors', payload: error });
+      });
+
+      return;
+    }
+
+    try {
+      const formData = getFormData({ formState });
+      const { register } = authService({ client: fetchClient() });
+      await register({ newUser: formData });
+      toast.success('Registration successful');
+      router.push('login');
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        setFormErrors(error.errors);
+        return;
+      }
+
+      if (error instanceof Error) {
+        console.log(error);
+        toast.error(error.message);
+        return;
+      }
+    }
   }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.formHeader}>Register</h1>
       <hr className={styles.separator} />
+      <ul className={styles.formErrors}>
+        {formErrors.map((error, i) => (
+          <li key={i}>{error}</li>
+        ))}
+      </ul>
       <form
         className={styles.loginForm}
         onSubmit={handleFormSubmit}
@@ -81,6 +122,7 @@ export default function LoginForm() {
           return (
             <FormField
               key={key}
+              fieldName={key}
               formField={formField}
               onChangeHandler={handleInputChange}
             />

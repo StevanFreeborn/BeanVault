@@ -3,23 +3,23 @@ import { ChangeEvent } from 'react';
 import styles from './FormField.module.css';
 
 export default function FormField({
-  key,
+  fieldName,
   formField,
   onChangeHandler,
 }: {
-  key: string;
+  fieldName: string;
   formField: FormField;
   onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div key={key} className={styles.formGroup}>
-      <label className={styles.formLabel} htmlFor={key}>
+    <div key={fieldName} className={styles.formGroup}>
+      <label className={styles.formLabel} htmlFor={fieldName}>
         {formField.labelText}
       </label>
       <input
         {...formField.inputProps}
-        id={key}
-        name={key}
+        id={fieldName}
+        name={fieldName}
         className={styles.formControl}
         type={formField.type}
         value={formField.value}

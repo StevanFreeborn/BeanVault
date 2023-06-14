@@ -9,6 +9,7 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
   const { isLoading, isLoggedIn } = useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { logUserOut } = useUserContext();
 
   return (
     <nav className={styles.navbar}>
@@ -53,7 +54,11 @@ export default function Navbar() {
           {isLoggedIn() ? (
             <>
               <li className={styles.navItem}>
-                <button type="button" className={styles.logoutButton}>
+                <button
+                  onClick={() => logUserOut()}
+                  type="button"
+                  className={styles.logoutButton}
+                >
                   Logout
                 </button>
               </li>

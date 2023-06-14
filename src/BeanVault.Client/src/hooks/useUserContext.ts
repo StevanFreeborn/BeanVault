@@ -1,5 +1,6 @@
 import { UserContext } from '@/contexts/UserContext';
 import { useContext } from 'react';
+import { AuthUser } from './../types/AuthUser';
 
 export function useUserContext() {
   const userContext = useContext(UserContext);
@@ -24,9 +25,19 @@ export function useUserContext() {
     return true;
   }
 
+  function logUserIn({ user }: { user: AuthUser }) {
+    dispatchUserAction({ type: 'login', payload: { user } });
+  }
+
+  function logUserOut() {
+    dispatchUserAction({ type: 'logout' });
+  }
+
   return {
     isLoading,
     userState,
     isLoggedIn,
+    logUserIn,
+    logUserOut,
   };
 }

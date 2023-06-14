@@ -25,7 +25,6 @@ public class AddUserDto
     {
       UserName = Email,
       Email = Email,
-      NormalizedEmail = Email.ToLower(),
       Name = Name,
       PhoneNumber = PhoneNumber,
       Password = Password,

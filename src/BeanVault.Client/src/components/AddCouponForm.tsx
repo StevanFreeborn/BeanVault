@@ -12,8 +12,6 @@ import styles from './AddCouponForm.module.css';
 import FormField from './FormField';
 
 export default function AddCouponForm() {
-  const router = useRouter();
-
   const initialFormState: FormState = {
     couponCode: {
       labelText: 'Coupon Code',
@@ -50,6 +48,7 @@ export default function AddCouponForm() {
     },
   };
 
+  const router = useRouter();
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -100,6 +99,7 @@ export default function AddCouponForm() {
           return (
             <FormField
               key={key}
+              fieldName={key}
               formField={formField}
               onChangeHandler={handleInputChange}
             />

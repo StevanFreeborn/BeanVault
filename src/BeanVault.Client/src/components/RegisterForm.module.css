@@ -18,6 +18,11 @@
   border: 1px solid #404149;
 }
 
+.formErrors {
+  list-style: none;
+  color: #ff0000
+}
+
 .loginForm {
   display: flex;
   flex-direction: column;
