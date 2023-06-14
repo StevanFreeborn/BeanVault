@@ -3,7 +3,7 @@
 import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
 import { Coupon } from '@/types/Coupon';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import styles from './CouponTable.module.css';
@@ -13,7 +13,18 @@ export default function CouponTable({
 }: {
   initialCouponState?: Coupon[];
 }) {
-  const [coupons, setCoupons] = useState(initialCouponState);
+  const [coupons, setCoupons] = useState<Coupon[]>(initialCouponState);
+
+  useEffect(() => {
+    const { getCoupons } = couponService({ client: fetchClient() });
+    getCoupons()
+      .then(c => setCoupons(c))
+      .catch(error => {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      });
+  }, [coupons.length]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
