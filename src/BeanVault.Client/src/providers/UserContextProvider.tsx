@@ -41,17 +41,19 @@ export function UserContextProvider({
   children: ReactNode;
 }) {
   const [isLoading, setIsLoading] = useState(true);
+
   const [userState, dispatchUserAction] = useReducer(userStateReducer, null);
 
   useEffect(() => {
-    const userState = initialUserState();
+    const initUserState = initialUserState();
+
     if (
-      userState !== null &&
-      new Date(userState.expiration).getTime() > Date.now()
+      initUserState !== null &&
+      new Date(initUserState.expiration).getTime() > Date.now()
     ) {
       dispatchUserAction({
         type: 'login',
-        payload: { user: userState },
+        payload: { user: initUserState },
       });
     }
 

@@ -2,7 +2,8 @@
 
 import { useUserContext } from '@/hooks/useUserContext';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { MouseEvent, useState } from 'react';
 import { RxChevronDown } from 'react-icons/rx';
 import styles from './Navbar.module.css';
 
@@ -10,6 +11,12 @@ export default function Navbar() {
   const { isLoading, userState } = useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { logUserOut } = useUserContext();
+  const { push } = useRouter();
+
+  function handleLogOutButtonClick(e: MouseEvent<HTMLButtonElement>) {
+    logUserOut();
+    push('login');
+  }
 
   return (
     <nav className={styles.navbar}>
@@ -65,7 +72,7 @@ export default function Navbar() {
                 <>
                   <li className={styles.navItem}>
                     <button
-                      onClick={() => logUserOut()}
+                      onClick={handleLogOutButtonClick}
                       type="button"
                       className={styles.logoutButton}
                     >

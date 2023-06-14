@@ -2,6 +2,7 @@
 
 import { AppProviders } from '@/providers/AppProviders';
 import { Inter } from 'next/font/google';
+import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 import './globals.css';
@@ -13,11 +14,7 @@ export const metadata = {
   description: 'A place to fill all your coffee needs',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>

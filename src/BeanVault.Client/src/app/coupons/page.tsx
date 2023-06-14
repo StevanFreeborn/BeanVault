@@ -1,4 +1,5 @@
 import CouponTable from '@/components/CouponTable';
+import ProtectedPage from '@/components/ProtectedPage';
 import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
 import Link from 'next/link';
@@ -12,23 +13,25 @@ export default async function CouponsPage() {
   const coupons = await getCoupons();
 
   return (
-    <div className={styles.card}>
-      <div className={styles.cardHeader}>
-        <h1>Coupons List</h1>
-      </div>
-      <div className={styles.cardBody}>
-        <div className={styles.addButtonContainer}>
-          <Link
-            href="coupons/add"
-            title="Add New Coupon"
-            className={styles.addCouponLink}
-          >
-            <AiOutlinePlusSquare />
-            Create New Coupon
-          </Link>
+    <ProtectedPage>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h1>Coupons List</h1>
         </div>
-        <CouponTable initialCouponState={coupons} />
+        <div className={styles.cardBody}>
+          <div className={styles.addButtonContainer}>
+            <Link
+              href="coupons/add"
+              title="Add New Coupon"
+              className={styles.addCouponLink}
+            >
+              <AiOutlinePlusSquare />
+              Create New Coupon
+            </Link>
+          </div>
+          <CouponTable initialCouponState={coupons} />
+        </div>
       </div>
-    </div>
+    </ProtectedPage>
   );
 }
