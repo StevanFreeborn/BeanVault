@@ -9,5 +9,10 @@
     "ConnectionString": "ConnectionString",
     "DatabaseName": "DatabaseName"
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "JwtOptions": {
+    "Secret": "Secret",
+    "Issuer": "Issuer",
+    "Audience": "Audience"
+  }
 }

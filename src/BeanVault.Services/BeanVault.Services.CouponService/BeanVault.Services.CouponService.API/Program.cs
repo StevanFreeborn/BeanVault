@@ -14,7 +14,7 @@ builder.Services.AddApiVersioning(
   }
 );
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 
 builder.Services.AddCors(
   options => options.AddPolicy(
@@ -27,6 +27,8 @@ builder.Services.AddCors(
   )
 );
 
+builder.Services.AddJwtAuthentication(config);
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -39,6 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -12,10 +12,11 @@ public class JwtTokenService : IJwtTokenService
   /// Generates a token with claims for given user.
   /// </summary>
   /// <param name="user"></param>
+  /// <param name="roles"></param>
   /// <returns>The tokens expiration.</returns>
   /// <returns>The generated token.</returns>
   /// <exception cref="InvalidModelException"></exception>
-  public (DateTime tokenExpiration, string token) GenerateToken(ApplicationUser user)
+  public (DateTime tokenExpiration, string token) GenerateToken(ApplicationUser user, IList<string> roles)
   {
     var tokenHandler = new JwtSecurityTokenHandler();
     var key = Encoding.ASCII.GetBytes(_options.Secret);
@@ -36,6 +37,8 @@ public class JwtTokenService : IJwtTokenService
       new Claim(JwtRegisteredClaimNames.Sub, user.Id),
       new Claim(JwtRegisteredClaimNames.Name, user.UserName)
     };
+
+    claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
     var expiration = DateTime.UtcNow.AddDays(7);
 

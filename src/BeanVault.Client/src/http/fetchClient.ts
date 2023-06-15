@@ -1,8 +1,16 @@
 import { FetchClientType } from '@/types/FetchClientType';
 
-export function fetchClient(): FetchClientType {
+export function fetchClient(clientConfig?: RequestInit): FetchClientType {
   async function request(url: string, config?: RequestInit): Promise<Response> {
-    return await fetch(new Request(url, config));
+    var fetchConfig = {
+      ...config,
+      ...clientConfig,
+      headers: {
+        ...config?.headers,
+        ...clientConfig?.headers,
+      },
+    };
+    return await fetch(new Request(url, fetchConfig));
   }
 
   async function get(url: string, config?: RequestInit) {

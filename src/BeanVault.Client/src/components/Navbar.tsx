@@ -71,6 +71,9 @@ export default function Navbar() {
               {userState !== null ? (
                 <>
                   <li className={styles.navItem}>
+                    Hello, {userState.user.name}
+                  </li>
+                  <li className={styles.navItem}>
                     <button
                       onClick={handleLogOutButtonClick}
                       type="button"

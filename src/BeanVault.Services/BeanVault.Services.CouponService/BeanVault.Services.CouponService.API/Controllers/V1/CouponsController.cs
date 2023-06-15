@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace BeanVault.Services.CouponService.API.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/coupons")]

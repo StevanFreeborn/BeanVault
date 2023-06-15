@@ -156,4 +156,11 @@ public class UserService : IUserService
       );
     }
   }
+
+  public async Task<IList<string>> GetUserRolesAsync(ApplicationUser user)
+  {
+    var roles = await _userManager.GetRolesAsync(user);
+
+    return roles == null ? new List<string>() : roles;
+  }
 }

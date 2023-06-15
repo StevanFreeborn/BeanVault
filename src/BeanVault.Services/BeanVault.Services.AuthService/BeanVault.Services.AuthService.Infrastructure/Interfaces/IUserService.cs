@@ -6,4 +6,5 @@ public interface IUserService
   Task<ApplicationUser> LogInUserAsync(ApplicationUser user);
   Task<ApplicationUser> GetUserByIdAsync(string id);
   Task AddRoleToUserAsync(string userId, string roleName);
+  Task<IList<string>> GetUserRolesAsync(ApplicationUser user);
 }

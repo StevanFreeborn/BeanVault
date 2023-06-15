@@ -78,7 +78,7 @@ export default function LoginForm() {
       }
 
       if (error instanceof Error) {
-        console.log(error);
+        console.error(error);
         toast.error(error.message);
         return;
       }

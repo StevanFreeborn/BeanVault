@@ -1,5 +1,6 @@
 'use client';
 
+import { useUserContext } from '@/hooks/useUserContext';
 import { fetchClient } from '@/http/fetchClient';
 import { couponService } from '@/services/couponService';
 import { FormState } from '@/types/FormState';
@@ -48,6 +49,7 @@ export default function AddCouponForm() {
     },
   };
 
+  const { userState } = useUserContext();
   const router = useRouter();
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
@@ -74,12 +76,16 @@ export default function AddCouponForm() {
 
     try {
       const formData = getFormData({ formState });
-      const { addCoupon } = couponService({ client: fetchClient() });
+      const { addCoupon } = couponService({
+        client: fetchClient({
+          headers: { Authorization: `Bearer ${userState?.token}` },
+        }),
+      });
       await addCoupon({ newCoupon: formData });
       router.push('coupons');
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error);
+        console.error(error);
         toast.error(error.message);
       }
     }
