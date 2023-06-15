@@ -1,12 +1,26 @@
 .navbar {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
+.navbarsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbarLeft,
+.navbarRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
 .navbarBrand {
+  padding-left: 2rem;
   color: #c8c7c8
 }
 
@@ -40,7 +54,8 @@
   display: block;
 }
 
-.dropdownButton {
+.dropdownButton,
+.logoutButton {
   display: flex;
   align-items: center;
   gap: 0.25rem;

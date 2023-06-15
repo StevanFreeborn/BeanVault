@@ -1,11 +1,17 @@
 {
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Launch Services",
+      "configurations": ["Launch AuthService", "Launch CouponService"]
+    }
+  ],
   "configurations": [
     {
       "name": "Launch CouponService",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-coupon-service",
       "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/bin/Debug/net7.0/BeanVault.Services.CouponService.API.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponService/BeanVault.Services.CouponService.API/",
@@ -20,6 +26,30 @@
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "http://localhost:7001"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Launch AuthService",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-auth-service",
+      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.AuthService/BeanVault.Services.AuthService.API/bin/Debug/net7.0/BeanVault.Services.AuthService.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.AuthService/BeanVault.Services.AuthService.API/",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:7002"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
