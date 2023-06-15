@@ -55,7 +55,6 @@ public static class IServiceCollectionExtensions
     )
     .AddJwtBearer(
       (options) =>
-      {
         options.TokenValidationParameters = new TokenValidationParameters
         {
           ValidateIssuerSigningKey = true,
@@ -64,8 +63,7 @@ public static class IServiceCollectionExtensions
           ValidIssuer = jwtOptions.Issuer,
           ValidateAudience = true,
           ValidAudience = jwtOptions.Audience,
-        };
-      }
+        }
     );
 
     return services;

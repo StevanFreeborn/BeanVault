@@ -16,5 +16,6 @@ public class AuthUserDto
     User = new UserDto(user);
     Token = token;
     Expiration = tokenExpiration;
+    Roles = roles;
   }
 }
