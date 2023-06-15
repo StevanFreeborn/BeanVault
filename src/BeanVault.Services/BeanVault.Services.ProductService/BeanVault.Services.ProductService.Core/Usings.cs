@@ -1,0 +1,1 @@
+global using BeanVault.Services.ProductService.Core.Models;

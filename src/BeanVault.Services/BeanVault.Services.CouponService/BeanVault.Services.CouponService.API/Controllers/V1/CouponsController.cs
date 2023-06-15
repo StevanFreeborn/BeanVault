@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace BeanVault.Services.CouponService.API.Controllers;
 
 [Authorize]
