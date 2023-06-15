@@ -3,7 +3,11 @@
   "compounds": [
     {
       "name": "Launch Services",
-      "configurations": ["Launch AuthService", "Launch CouponService"]
+      "configurations": [
+        "Launch AuthService",
+        "Launch CouponService",
+        "Launch ProductService"
+      ]
     }
   ],
   "configurations": [
@@ -50,6 +54,30 @@
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "http://localhost:7002"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Launch ProductService",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-product-service",
+      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.ProductService/BeanVault.Services.ProductService.API/bin/Debug/net7.0/BeanVault.Services.ProductService.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.ProductService/BeanVault.Services.ProductService.API/",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:7003"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
