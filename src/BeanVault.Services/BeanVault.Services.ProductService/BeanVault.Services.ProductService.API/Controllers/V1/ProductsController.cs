@@ -52,4 +52,6 @@ public class ProductsController : ControllerBase
       new ProductDto(newProduct)
     );
   }
+
+  // TODO: Implement update product action
 }
