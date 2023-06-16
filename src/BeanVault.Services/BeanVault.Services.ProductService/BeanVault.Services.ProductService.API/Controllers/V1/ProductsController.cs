@@ -28,7 +28,6 @@ public class ProductsController : ControllerBase
   [MapToApiVersion("1.0")]
   [HttpGet("{id}")]
   [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetProductByIdAsync(string id)
