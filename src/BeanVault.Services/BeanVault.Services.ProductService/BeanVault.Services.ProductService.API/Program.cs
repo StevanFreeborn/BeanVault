@@ -14,15 +14,7 @@ builder.Services.AddApiVersioning(
   }
 );
 
-builder.Services.AddSwaggerGen(
-  options => options.IncludeXmlComments(
-    Path.Combine(
-      AppContext.BaseDirectory,
-      "BeanVault.Services.ProductService.API.xml"
-    ),
-    true
-  )
-);
+builder.Services.AddSwagger();
 
 builder.Services.AddCors(
   options => options.AddPolicy(
@@ -35,6 +27,9 @@ builder.Services.AddCors(
   )
 );
 
+builder.Services.AddJwtAuthentication(config);
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
@@ -46,9 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

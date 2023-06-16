@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace BeanVault.Services.ProductService.API.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/products")]
@@ -20,6 +23,7 @@ public class ProductsController : ControllerBase
   [HttpGet]
   [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetProducts([FromQuery] ProductQuery query)
   {
@@ -34,6 +38,7 @@ public class ProductsController : ControllerBase
   [MapToApiVersion("1.0")]
   [HttpGet("{id}")]
   [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetProductById(string id)
@@ -49,6 +54,7 @@ public class ProductsController : ControllerBase
   [HttpPost]
   [ProducesResponseType(typeof(ProductDto), StatusCodes.Status201Created)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
   {
@@ -68,6 +74,7 @@ public class ProductsController : ControllerBase
   [HttpPut]
   [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> UpdateProduct(ProductDto productDto)
@@ -82,6 +89,7 @@ public class ProductsController : ControllerBase
   [MapToApiVersion("1.0")]
   [HttpDelete("{id}")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> DeleteProductById(string id)
