@@ -39,6 +39,9 @@ public class ProductsController : ControllerBase
 
   [MapToApiVersion("1.0")]
   [HttpPost]
+  [ProducesResponseType(typeof(ProductDto), StatusCodes.Status201Created)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
   {
     var product = addProductDto.ToProduct();
