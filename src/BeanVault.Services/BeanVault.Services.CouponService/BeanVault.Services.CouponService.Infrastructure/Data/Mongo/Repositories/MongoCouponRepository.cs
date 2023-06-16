@@ -10,6 +10,11 @@ public class MongoCouponRepository : ICouponRepository
     _context = context;
   }
 
+  /// <summary>
+  /// Adds the given coupon.
+  /// </summary>
+  /// <param name="coupon"></param>
+  /// <returns>The newly created coupon.</returns>
   public async Task<Coupon> AddCouponAsync(Coupon coupon)
   {
     await _context.Coupons.InsertOneAsync(coupon);

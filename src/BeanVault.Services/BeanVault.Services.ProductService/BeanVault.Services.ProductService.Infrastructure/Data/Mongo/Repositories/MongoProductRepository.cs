@@ -11,6 +11,12 @@ public class MongoProductRepository : IProductRepository
     _context = context;
   }
 
+  public async Task<Product> AddProductAsync(Product coupon)
+  {
+    await _context.Products.InsertOneAsync(coupon);
+    return coupon;
+  }
+
   public Task<Product> GetProductByIdAsync(string id)
   {
     var product = _context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();

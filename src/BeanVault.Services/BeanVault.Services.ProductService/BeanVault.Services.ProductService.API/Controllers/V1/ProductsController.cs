@@ -30,9 +30,23 @@ public class ProductsController : ControllerBase
   [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> GetProductByIdAsync(string id)
+  public async Task<IActionResult> GetProductById(string id)
   {
     var product = await _productRepository.GetProductByIdAsync(id);
     return Ok(new ProductDto(product));
+  }
+
+
+  [MapToApiVersion("1.0")]
+  [HttpPost]
+  public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
+  {
+    var product = addProductDto.ToProduct();
+    var newProduct = await _productRepository.AddProductAsync(product);
+    return CreatedAtAction(
+      nameof(GetProductById),
+      new { id = newProduct.Id },
+      new ProductDto(newProduct)
+    );
   }
 }

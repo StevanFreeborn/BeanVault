@@ -44,7 +44,7 @@ public class CouponsController : ControllerBase
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> AddCouponAsync(AddCouponDto addCouponDto)
+  public async Task<IActionResult> AddCoupon(AddCouponDto addCouponDto)
   {
     var coupon = addCouponDto.ToCoupon();
     var newCoupon = await _couponRepository.AddCouponAsync(coupon);

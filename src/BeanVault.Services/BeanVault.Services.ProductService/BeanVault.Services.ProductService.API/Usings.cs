@@ -10,3 +10,5 @@ global using BeanVault.Services.ProductService.Infrastructure.DependencyInjectio
 
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Versioning;
+global using System.ComponentModel.DataAnnotations;
+
