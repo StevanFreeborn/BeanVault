@@ -1,3 +1,5 @@
+using BeanVault.Services.ProductService.Core.Exceptions;
+
 namespace BeanVault.Services.ProductService.Infrastructure.Data.Mongo.Repositories;
 
 public class MongoProductRepository : IProductRepository
@@ -7,6 +9,18 @@ public class MongoProductRepository : IProductRepository
   public MongoProductRepository(MongoDbContext context)
   {
     _context = context;
+  }
+
+  public Task<Product> GetProductByIdAsync(string id)
+  {
+    var product = _context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
+
+    if (product == null)
+    {
+      throw new ModelNotFoundException($"Unable to find product with id: {id}");
+    }
+
+    return product;
   }
 
   public async Task<List<Product>> GetProductsAsync(ProductQuery query)
