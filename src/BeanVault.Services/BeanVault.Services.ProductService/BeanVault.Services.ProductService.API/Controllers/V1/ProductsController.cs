@@ -1,4 +1,3 @@
-
 namespace BeanVault.Services.ProductService.API.Controllers;
 
 [ApiController]
@@ -19,8 +18,9 @@ public class ProductsController : ControllerBase
   [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> GetProducts()
+  public async Task<IActionResult> GetProducts([FromQuery] ProductQuery query)
   {
+    var products = await _productRepository.GetProductsAsync(query);
     return Ok();
   }
 }
