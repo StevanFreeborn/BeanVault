@@ -21,6 +21,7 @@ public class ProductsController : ControllerBase
   public async Task<IActionResult> GetProducts([FromQuery] ProductQuery query)
   {
     var products = await _productRepository.GetProductsAsync(query);
-    return Ok();
+    var productDtos = products.Select(p => new ProductDto(p)).ToList();
+    return Ok(productDtos);
   }
 }

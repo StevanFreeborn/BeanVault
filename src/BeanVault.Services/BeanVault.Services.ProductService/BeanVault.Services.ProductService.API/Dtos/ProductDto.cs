@@ -8,4 +8,18 @@ public class ProductDto
   public string Description { get; set; } = string.Empty;
   public string CategoryName { get; set; } = string.Empty;
   public string ImageUrl { get; set; } = string.Empty;
+
+  public ProductDto()
+  {
+  }
+
+  public ProductDto(Product product)
+  {
+    Id = product.Id;
+    Name = product.Name;
+    Price = product.Price;
+    Description = product.Description;
+    CategoryName = product.CategoryName;
+    ImageUrl = product.ImageUrl;
+  }
 }
