@@ -14,7 +14,15 @@ builder.Services.AddApiVersioning(
   }
 );
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+  options => options.IncludeXmlComments(
+    Path.Combine(
+      AppContext.BaseDirectory,
+      "BeanVault.Services.ProductService.API.xml"
+    ),
+    true
+  )
+);
 
 builder.Services.AddCors(
   options => options.AddPolicy(

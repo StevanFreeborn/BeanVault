@@ -57,7 +57,7 @@ public class MongoCouponRepository : ICouponRepository
   }
 
   /// <summary>
-  /// Updates the coupon with given state.
+  /// Updates the coupon with the given state.
   /// </summary>
   /// <param name="coupon"></param>
   /// <returns>The updated coupon.</returns>
