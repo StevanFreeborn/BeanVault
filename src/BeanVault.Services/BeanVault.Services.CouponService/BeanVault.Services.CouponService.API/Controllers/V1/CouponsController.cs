@@ -17,7 +17,6 @@ public class CouponsController : ControllerBase
   [HttpGet]
   [ProducesResponseType(typeof(List<CouponDto>), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetCoupons([FromQuery] CouponQuery query)
   {
