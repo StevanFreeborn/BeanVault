@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  max-width: 960px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.gridItem {
+  background-color: #ccc;
+  padding: 20px;
+}
