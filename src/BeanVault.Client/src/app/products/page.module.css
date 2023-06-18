@@ -1,0 +1,24 @@
+.addProductContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.addProductLink {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #292931;
+  color: #ffffff;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.addProductLink:hover {
+  background-color: #212127;
+}

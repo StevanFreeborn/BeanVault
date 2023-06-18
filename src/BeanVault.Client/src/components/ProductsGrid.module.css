@@ -10,6 +10,31 @@
 }
 
 .gridItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   background-color: #ccc;
-  padding: 20px;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.description {
+  font-size: 0.85rem;
 }

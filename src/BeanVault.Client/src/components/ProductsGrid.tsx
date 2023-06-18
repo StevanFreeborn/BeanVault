@@ -35,6 +35,11 @@ export default function ProductsGrid() {
       });
   });
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
   return isLoading ? (
     <div>Loading...</div>
   ) : (
@@ -42,16 +47,20 @@ export default function ProductsGrid() {
       <div className={styles.gridContainer}>
         {products.map(product => (
           <div className={styles.gridItem}>
-            <div
-              style={{ width: '100%', height: '100%', position: 'relative' }}
-            >
+            <div className={styles.name}>{product.name}</div>
+            <div className={styles.image}>
               <Image
                 alt={product.name}
                 src={product.imageUrl}
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', borderRadius: '5px' }}
               />
             </div>
+            <div className={styles.details}>
+              <div>{product.categoryName}</div>
+              <div>{formatter.format(product.price)}</div>
+            </div>
+            <div className={styles.description}>{product.description}</div>
           </div>
         ))}
       </div>
