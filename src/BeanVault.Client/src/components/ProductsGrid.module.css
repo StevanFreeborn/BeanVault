@@ -35,5 +35,48 @@
 }
 
 .description {
+  flex: 1;
   font-size: 0.85rem;
+}
+
+.actionContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.editProductLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #292931;
+  ;
+  color: #ffffff;
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.editProductLink:hover {
+  background-color: #212127;
+  ;
+}
+
+.deleteProductButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e85b5b;
+  color: #ffffff;
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.deleteProductButton:hover {
+  background-color: #c94c4c;
 }

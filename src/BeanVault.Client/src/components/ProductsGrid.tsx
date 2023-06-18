@@ -5,8 +5,11 @@ import { fetchClient } from '@/http/fetchClient';
 import { productService } from '@/services/productService';
 import { Product } from '@/types/Product';
 import Image from 'next/image.js';
+import Link from 'next/link.js';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { AiFillEdit } from 'react-icons/ai';
+import { MdDelete } from 'react-icons/md';
 import styles from './ProductsGrid.module.css';
 
 export default function ProductsGrid() {
@@ -61,6 +64,17 @@ export default function ProductsGrid() {
               <div>{formatter.format(product.price)}</div>
             </div>
             <div className={styles.description}>{product.description}</div>
+            <div className={styles.actionContainer}>
+              <Link
+                href={`products/edit/${product.id}`}
+                className={styles.editProductLink}
+              >
+                <AiFillEdit />
+              </Link>
+              <button className={styles.deleteProductButton} type="button">
+                <MdDelete />
+              </button>
+            </div>
           </div>
         ))}
       </div>
