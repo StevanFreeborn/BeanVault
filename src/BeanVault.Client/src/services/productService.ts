@@ -33,8 +33,19 @@ export function productService({ client }: { client: FetchClientType }) {
     return await res.json();
   }
 
+  async function deleteProduct({ id }: { id: string }) {
+    const res = await client.delete(
+      `${PRODUCT_SERVICE_URL}/api/products/${id}`
+    );
+
+    if (res.ok === false) {
+      throw new Error('Unable to delete product');
+    }
+  }
+
   return {
     getProducts,
     addProduct,
+    deleteProduct,
   };
 }

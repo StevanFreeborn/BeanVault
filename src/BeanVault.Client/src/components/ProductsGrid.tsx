@@ -6,7 +6,7 @@ import { productService } from '@/services/productService';
 import { Product } from '@/types/Product';
 import Image from 'next/image.js';
 import Link from 'next/link.js';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiFillEdit } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
@@ -16,7 +16,7 @@ export default function ProductsGrid() {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const { userState } = useUserContext();
-  const { getProducts } = productService({
+  const { getProducts, deleteProduct } = productService({
     client: fetchClient({
       headers: {
         Authorization: `Bearer ${userState?.token}`,
@@ -42,6 +42,25 @@ export default function ProductsGrid() {
     style: 'currency',
     currency: 'USD',
   });
+
+  async function handleDeleteButtonClick(e: MouseEvent<HTMLButtonElement>) {
+    const id = e.currentTarget.dataset.productId;
+
+    if (id == undefined) {
+      return;
+    }
+
+    try {
+      await deleteProduct({ id });
+      setProducts(products.filter(p => p.id !== id));
+      toast.success('Product deleted');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+        toast.error(error.message);
+      }
+    }
+  }
 
   return isLoading ? (
     <div>Loading...</div>
@@ -71,7 +90,12 @@ export default function ProductsGrid() {
               >
                 <AiFillEdit />
               </Link>
-              <button className={styles.deleteProductButton} type="button">
+              <button
+                onClick={handleDeleteButtonClick}
+                data-product-id={product.id}
+                className={styles.deleteProductButton}
+                type="button"
+              >
                 <MdDelete />
               </button>
             </div>
