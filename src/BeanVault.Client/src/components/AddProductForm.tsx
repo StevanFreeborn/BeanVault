@@ -59,7 +59,7 @@ export default function AddProductForm() {
     },
     imageUrl: {
       labelText: 'Image Url',
-      type: 'text',
+      type: 'url',
       value: '',
       errors: [],
       inputProps: {

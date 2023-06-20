@@ -36,7 +36,7 @@ export default function ProductsGrid() {
           toast.error(error.message);
         }
       });
-  });
+  }, [products.length]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
