@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
+import { AiOutlineReload } from 'react-icons/ai';
+import styles from './error.module.css';
+
 export default function Error({
   error,
   reset,
@@ -7,10 +11,17 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
+      <button className={styles.resetButton} onClick={() => reset()}>
+        <AiOutlineReload />
+        Reset
+      </button>
     </div>
   );
 }
