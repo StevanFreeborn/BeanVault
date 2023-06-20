@@ -68,7 +68,7 @@ export default function ProductsGrid() {
     <div className={styles.container}>
       <div className={styles.gridContainer}>
         {products.map(product => (
-          <div className={styles.gridItem}>
+          <div className={styles.gridItem} key={product.id}>
             <div className={styles.name}>{product.name}</div>
             <div className={styles.image}>
               <Image

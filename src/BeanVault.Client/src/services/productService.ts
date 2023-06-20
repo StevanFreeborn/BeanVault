@@ -43,9 +43,20 @@ export function productService({ client }: { client: FetchClientType }) {
     }
   }
 
+  async function getProductById({ id }: { id: string }): Promise<Product> {
+    const res = await client.get(`${PRODUCT_SERVICE_URL}/api/products/${id}`);
+
+    if (res.ok === false) {
+      throw new Error('Unable to get product to edit');
+    }
+
+    return await res.json();
+  }
+
   return {
     getProducts,
     addProduct,
     deleteProduct,
+    getProductById,
   };
 }

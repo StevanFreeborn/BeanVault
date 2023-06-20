@@ -6,12 +6,12 @@ import { productService } from '@/services/productService';
 import { FormState } from '@/types/FormState';
 import { formReducer, getFormData, getFormErrors } from '@/utils/forms';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, FormEvent, useReducer } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useReducer, useState } from 'react';
 import toast from 'react-hot-toast';
 import ProductForm from './ProductForm';
 
-export default function AddProductForm() {
-  const initialFormState: FormState = {
+export default function EditProductForm({ productId }: { productId: string }) {
+  const [initialFormState, setInitialFormState] = useState<FormState>({
     name: {
       labelText: 'Name',
       type: 'text',
@@ -66,11 +66,35 @@ export default function AddProductForm() {
         maxLength: 150,
       },
     },
-  };
+  });
 
-  const { userState } = useUserContext();
+  const { isLoading, userState } = useUserContext();
   const router = useRouter();
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
+  const { getProductById } = productService({
+    client: fetchClient({
+      headers: { Authorization: `Bearer ${userState?.token}` },
+    }),
+  });
+
+  // TODO: populate form state with product info returned
+  // TODO: might need to also show loading state until fetching
+  // product is complete
+
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    getProductById({ id: productId })
+      .then(p => console.log(p))
+      .catch(error => {
+        if (error instanceof Error) {
+          console.error(error);
+          toast.error(error.message);
+        }
+      });
+  }, [isLoading]);
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     dispatch({
@@ -110,13 +134,15 @@ export default function AddProductForm() {
     }
   }
 
-  return (
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <ProductForm
-      formHeaderText="Add Product"
+      formHeaderText="Edit Product"
       formState={formState}
       formSubmitHandler={handleFormSubmit}
       inputChangeHandler={handleInputChange}
-      actionButtonText="Add"
+      actionButtonText="Save"
     />
   );
 }
