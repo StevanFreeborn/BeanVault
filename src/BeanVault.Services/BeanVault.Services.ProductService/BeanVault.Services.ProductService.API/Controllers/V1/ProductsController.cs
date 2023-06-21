@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace BeanVault.Services.ProductService.API.Controllers;
 
 [Authorize]
@@ -50,6 +48,7 @@ public class ProductsController : ControllerBase
   /// <summary>
   /// Add a product
   /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPost]
   [ProducesResponseType(typeof(ProductDto), StatusCodes.Status201Created)]
@@ -70,6 +69,7 @@ public class ProductsController : ControllerBase
   /// <summary>
   /// Update a product by id
   /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPut]
   [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
@@ -86,6 +86,7 @@ public class ProductsController : ControllerBase
   /// <summary>
   /// Delete a product by id
   /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpDelete("{id}")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]

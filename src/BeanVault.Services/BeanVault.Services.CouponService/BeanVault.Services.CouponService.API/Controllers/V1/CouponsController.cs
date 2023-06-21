@@ -13,6 +13,9 @@ public class CouponsController : ControllerBase
     _couponRepository = couponRepository;
   }
 
+  /// <summary>
+  /// Get coupons
+  /// </summary>
   [MapToApiVersion("1.0")]
   [HttpGet]
   [ProducesResponseType(typeof(List<CouponDto>), StatusCodes.Status200OK)]
@@ -26,6 +29,9 @@ public class CouponsController : ControllerBase
     return Ok(couponDtos);
   }
 
+  /// <summary>
+  /// Get a coupon by id
+  /// </summary>
   [MapToApiVersion("1.0")]
   [HttpGet("{id}")]
   [ProducesResponseType(typeof(List<CouponDto>), StatusCodes.Status200OK)]
@@ -38,6 +44,10 @@ public class CouponsController : ControllerBase
     return Ok(new CouponDto(coupon));
   }
 
+  /// <summary>
+  /// Add coupon
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPost]
   [ProducesResponseType(typeof(CouponDto), StatusCodes.Status201Created)]
@@ -55,6 +65,10 @@ public class CouponsController : ControllerBase
     );
   }
 
+  /// <summary>
+  /// Update a coupon by id
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPut]
   [ProducesResponseType(typeof(CouponDto), StatusCodes.Status200OK)]
@@ -68,6 +82,10 @@ public class CouponsController : ControllerBase
     return Ok(new CouponDto(updatedCoupon));
   }
 
+  /// <summary>
+  /// Delete a coupon by id
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpDelete("{id}")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
