@@ -9,7 +9,7 @@ export function useUserContext() {
     throw new Error('User context must be used within UserContext provider');
   }
 
-  const { isLoading, userState, dispatchUserAction } = userContext;
+  const { userIsLoading, userState, dispatchUserAction } = userContext;
 
   function logUserIn({ user }: { user: AuthUser }) {
     dispatchUserAction({ type: 'login', payload: { user } });
@@ -20,7 +20,7 @@ export function useUserContext() {
   }
 
   return {
-    isLoading,
+    userIsLoading,
     userState,
     logUserIn,
     logUserOut,

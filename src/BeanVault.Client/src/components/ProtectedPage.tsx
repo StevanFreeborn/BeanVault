@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 
 export default function ProtectedPage({ children }: { children: ReactNode }) {
-  const { isLoading, userState } = useUserContext();
+  const { userIsLoading, userState } = useUserContext();
   const { push } = useRouter();
 
   useEffect(() => {
-    if (isLoading == false && userState === null) {
+    if (userIsLoading == false && userState === null) {
       push('/login');
       return;
     }
-  }, [isLoading, userState]);
+  }, [userIsLoading, userState]);
 
-  return isLoading || userState === null ? <div>Loading...</div> : children;
+  return userIsLoading || userState === null ? <div>Loading...</div> : children;
 }

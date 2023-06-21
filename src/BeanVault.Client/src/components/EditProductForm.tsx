@@ -68,7 +68,8 @@ export default function EditProductForm({ productId }: { productId: string }) {
     },
   });
 
-  const { isLoading, userState } = useUserContext();
+  const { userIsLoading, userState } = useUserContext();
+  const [productIsLoading, setProductIsLoading] = useState(true);
   const router = useRouter();
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
   const { getProductById } = productService({
@@ -77,24 +78,33 @@ export default function EditProductForm({ productId }: { productId: string }) {
     }),
   });
 
-  // TODO: populate form state with product info returned
-  // TODO: might need to also show loading state until fetching
-  // product is complete
-
   useEffect(() => {
-    if (isLoading) {
+    if (userIsLoading) {
       return;
     }
 
     getProductById({ id: productId })
-      .then(p => console.log(p))
+      .then(p => {
+        for (const key in p) {
+          if (key === 'id') {
+            continue;
+          }
+
+          dispatch({
+            type: 'updateValue',
+            payload: { field: key, value: p[key] },
+          });
+        }
+
+        setProductIsLoading(false);
+      })
       .catch(error => {
         if (error instanceof Error) {
           console.error(error);
           toast.error(error.message);
         }
       });
-  }, [isLoading]);
+  }, [userIsLoading]);
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     dispatch({
@@ -119,12 +129,14 @@ export default function EditProductForm({ productId }: { productId: string }) {
 
     try {
       const formData = getFormData({ formState });
-      const { addProduct } = productService({
+      const { updateProductById } = productService({
         client: fetchClient({
           headers: { Authorization: `Bearer ${userState?.token}` },
         }),
       });
-      await addProduct({ newProduct: formData });
+      await updateProductById({
+        updatedProduct: { id: productId, ...formData },
+      });
       router.push('products');
     } catch (error) {
       if (error instanceof Error) {
@@ -134,7 +146,7 @@ export default function EditProductForm({ productId }: { productId: string }) {
     }
   }
 
-  return isLoading ? (
+  return productIsLoading ? (
     <div>Loading...</div>
   ) : (
     <ProductForm

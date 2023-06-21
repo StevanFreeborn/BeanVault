@@ -53,10 +53,29 @@ export function productService({ client }: { client: FetchClientType }) {
     return await res.json();
   }
 
+  async function updateProductById({
+    updatedProduct,
+  }: {
+    updatedProduct: FormData;
+  }): Promise<Product> {
+    const res = await client.put(
+      `${PRODUCT_SERVICE_URL}/api/products`,
+      undefined,
+      updatedProduct
+    );
+
+    if (res.ok === false) {
+      throw new Error('Unable to update product');
+    }
+
+    return await res.json();
+  }
+
   return {
     getProducts,
     addProduct,
     deleteProduct,
     getProductById,
+    updateProductById,
   };
 }

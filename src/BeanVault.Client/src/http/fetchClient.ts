@@ -38,9 +38,22 @@ export function fetchClient(clientConfig?: RequestInit): FetchClientType {
     return await request(url, requestConfig);
   }
 
+  async function put<T>(url: string, config?: RequestInit, body?: T) {
+    const requestConfig = {
+      ...config,
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    return await request(url, requestConfig);
+  }
+
   return {
     get,
     post,
     delete: del,
+    put,
   };
 }

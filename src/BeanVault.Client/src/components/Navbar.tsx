@@ -8,7 +8,7 @@ import { RxChevronDown } from 'react-icons/rx';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const { isLoading, userState } = useUserContext();
+  const { userIsLoading, userState } = useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { logUserOut } = useUserContext();
   const { push } = useRouter();
@@ -25,7 +25,7 @@ export default function Navbar() {
           <h1>BeanVault</h1>
         </Link>
       </div>
-      {isLoading ? (
+      {userIsLoading ? (
         <div className={styles.navbarsContainer}>
           <div className={styles.navbarLeft}>
             <ul className={styles.nav}>
