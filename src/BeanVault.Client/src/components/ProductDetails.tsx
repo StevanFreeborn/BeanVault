@@ -60,6 +60,7 @@ export default function ProductDetails({ productId }: { productId: string }) {
             <div>Description</div>
             <div>{product.description}</div>
           </div>
+          {/* TODO: Add form field for capturing count */}
         </div>
       </div>
       <div className={styles.cardFooter}>
