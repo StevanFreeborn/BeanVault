@@ -4,19 +4,17 @@ import { useUserContext } from '@/hooks/useUserContext';
 import { fetchClient } from '@/http/fetchClient';
 import { productService } from '@/services/productService';
 import { Product } from '@/types/Product';
-import Image from 'next/image.js';
-import Link from 'next/link.js';
-import { MouseEvent, useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiFillEdit } from 'react-icons/ai';
-import { MdDelete } from 'react-icons/md';
 import styles from './ProductsGrid.module.css';
 
 export default function ProductsGrid() {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
-  const { userState } = useUserContext();
-  const { getProducts, deleteProduct } = productService({
+  const { userIsLoading, userState } = useUserContext();
+  const { getProducts } = productService({
     client: fetchClient({
       headers: {
         Authorization: `Bearer ${userState?.token}`,
@@ -25,6 +23,10 @@ export default function ProductsGrid() {
   });
 
   useEffect(() => {
+    if (userIsLoading) {
+      return;
+    }
+
     getProducts()
       .then(p => {
         setProducts(p);
@@ -36,31 +38,12 @@ export default function ProductsGrid() {
           toast.error(error.message);
         }
       });
-  }, [products.length]);
+  }, [products.length, userIsLoading]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
-
-  async function handleDeleteButtonClick(e: MouseEvent<HTMLButtonElement>) {
-    const id = e.currentTarget.dataset.productId;
-
-    if (id == undefined) {
-      return;
-    }
-
-    try {
-      await deleteProduct({ id });
-      setProducts(products.filter(p => p.id !== id));
-      toast.success('Product deleted');
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error);
-        toast.error(error.message);
-      }
-    }
-  }
 
   return isLoading ? (
     <div>Loading...</div>
@@ -85,19 +68,11 @@ export default function ProductsGrid() {
             <div className={styles.description}>{product.description}</div>
             <div className={styles.actionContainer}>
               <Link
-                href={`products/edit/${product.id}`}
-                className={styles.editProductLink}
+                href={`products/details/${product.id}`}
+                className={styles.productDetailLink}
               >
-                <AiFillEdit />
+                Details
               </Link>
-              <button
-                onClick={handleDeleteButtonClick}
-                data-product-id={product.id}
-                className={styles.deleteProductButton}
-                type="button"
-              >
-                <MdDelete />
-              </button>
             </div>
           </div>
         ))}

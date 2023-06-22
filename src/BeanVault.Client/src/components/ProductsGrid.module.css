@@ -45,12 +45,12 @@
   gap: 0.5rem;
 }
 
-.editProductLink {
+.productDetailLink {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #292931;
-  ;
+  width: 100%;
   color: #ffffff;
   padding: 0.5rem;
   cursor: pointer;
@@ -59,24 +59,7 @@
   font-size: 1rem;
 }
 
-.editProductLink:hover {
+.productDetailLink:hover {
   background-color: #212127;
   ;
-}
-
-.deleteProductButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #e85b5b;
-  color: #ffffff;
-  padding: 0.5rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-}
-
-.deleteProductButton:hover {
-  background-color: #c94c4c;
 }

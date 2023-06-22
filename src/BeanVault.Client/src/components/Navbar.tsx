@@ -37,8 +37,9 @@ export default function Navbar() {
         <div className={styles.navbarsContainer}>
           <div className={styles.navbarLeft}>
             <ul className={styles.nav}>
-              <li className={styles.navItem}>Home</li>
-              <li className={styles.navItem}>Privacy</li>
+              <li className={styles.navItem}>
+                <Link href="/">Home</Link>
+              </li>
               <li className={styles.navItem}>
                 <button
                   type="button"
