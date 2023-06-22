@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace BeanVault.Services.CouponService.API.Controllers;
 
 [Authorize]
@@ -15,11 +13,14 @@ public class CouponsController : ControllerBase
     _couponRepository = couponRepository;
   }
 
+  /// <summary>
+  /// Get coupons
+  /// </summary>
   [MapToApiVersion("1.0")]
   [HttpGet]
   [ProducesResponseType(typeof(List<CouponDto>), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetCoupons([FromQuery] CouponQuery query)
   {
@@ -28,10 +29,13 @@ public class CouponsController : ControllerBase
     return Ok(couponDtos);
   }
 
+  /// <summary>
+  /// Get a coupon by id
+  /// </summary>
   [MapToApiVersion("1.0")]
   [HttpGet("{id}")]
   [ProducesResponseType(typeof(List<CouponDto>), StatusCodes.Status200OK)]
-  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> GetCouponById(string id)
@@ -40,12 +44,17 @@ public class CouponsController : ControllerBase
     return Ok(new CouponDto(coupon));
   }
 
+  /// <summary>
+  /// Add coupon
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPost]
   [ProducesResponseType(typeof(CouponDto), StatusCodes.Status201Created)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-  public async Task<IActionResult> AddCouponAsync(AddCouponDto addCouponDto)
+  public async Task<IActionResult> AddCoupon(AddCouponDto addCouponDto)
   {
     var coupon = addCouponDto.ToCoupon();
     var newCoupon = await _couponRepository.AddCouponAsync(coupon);
@@ -56,10 +65,15 @@ public class CouponsController : ControllerBase
     );
   }
 
+  /// <summary>
+  /// Update a coupon by id
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPut]
   [ProducesResponseType(typeof(CouponDto), StatusCodes.Status200OK)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> UpdateCoupon(CouponDto couponDto)
@@ -68,9 +82,14 @@ public class CouponsController : ControllerBase
     return Ok(new CouponDto(updatedCoupon));
   }
 
+  /// <summary>
+  /// Delete a coupon by id
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpDelete("{id}")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
+  [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> DeleteCouponById(string id)

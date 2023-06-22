@@ -3,6 +3,7 @@ import { FormData } from '@/types/FormData';
 import { FormState } from '@/types/FormState';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
+import isURL from 'validator/lib/isURL';
 
 export function formReducer(state: FormState, action: FormAction) {
   switch (action.type) {
@@ -78,17 +79,24 @@ export function getFormErrors({ formState }: { formState: FormState }) {
         });
       }
 
-      if (formField.type === 'email' && isEmail(formDataValue) == false) {
+      if (formField.type === 'email' && isEmail(formDataValue) === false) {
         errors.push({
           field,
           error: `${formField.labelText} must be a valid email address.`,
         });
       }
 
-      if (formField.type === 'tel' && isMobilePhone(formDataValue) == false) {
+      if (formField.type === 'tel' && isMobilePhone(formDataValue) === false) {
         errors.push({
           field,
           error: `${formField.labelText} must be a valid phone number.`,
+        });
+      }
+
+      if (formField.type === 'url' && isURL(formDataValue) === false) {
+        errors.push({
+          field,
+          error: `${formField.labelText} must be a valid url.`,
         });
       }
 

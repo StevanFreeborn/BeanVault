@@ -8,7 +8,7 @@ import { RxChevronDown } from 'react-icons/rx';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const { isLoading, userState } = useUserContext();
+  const { userIsLoading, userState } = useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { logUserOut } = useUserContext();
   const { push } = useRouter();
@@ -25,7 +25,7 @@ export default function Navbar() {
           <h1>BeanVault</h1>
         </Link>
       </div>
-      {isLoading ? (
+      {userIsLoading ? (
         <div className={styles.navbarsContainer}>
           <div className={styles.navbarLeft}>
             <ul className={styles.nav}>
@@ -37,8 +37,9 @@ export default function Navbar() {
         <div className={styles.navbarsContainer}>
           <div className={styles.navbarLeft}>
             <ul className={styles.nav}>
-              <li className={styles.navItem}>Home</li>
-              <li className={styles.navItem}>Privacy</li>
+              <li className={styles.navItem}>
+                <Link href="/">Home</Link>
+              </li>
               <li className={styles.navItem}>
                 <button
                   type="button"
@@ -54,6 +55,14 @@ export default function Navbar() {
                       : styles.dropdownNavClosed
                   }
                 >
+                  <li className={styles.dropdownNavItem}>
+                    <Link
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      href="products"
+                    >
+                      Products
+                    </Link>
+                  </li>
                   <li className={styles.dropdownNavItem}>
                     <Link
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}

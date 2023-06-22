@@ -1,0 +1,54 @@
+.productTable {
+  width: 100%;
+  background-color: #3d424b;
+  border-collapse: collapse;
+  color: #ffffff;
+}
+
+.productTable th,
+.productTable td {
+  border-bottom: 1px solid black;
+  padding: 0.5rem;
+}
+
+.productTableHeader {
+  text-align: left;
+}
+
+.deleteProductButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e85b5b;
+  color: #ffffff;
+  padding: 0.75rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.deleteProductButton:hover {
+  background-color: #c94c4c;
+}
+
+.editProductLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #292931;
+  color: #ffffff;
+  padding: 0.75rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.editProductLink:hover {
+  background-color: #212127;
+}
+
+.actionContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

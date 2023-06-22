@@ -14,6 +14,18 @@
       "problemMatcher": "$msCompile"
     },
     {
+      "label": "build-product-service",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.ProductService/BeanVault.Services.ProductService.API/",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
       "label": "build-auth-service",
       "command": "dotnet",
       "type": "process",
@@ -38,7 +50,7 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "publish",
+      "label": "publish-coupon-service",
       "command": "dotnet",
       "type": "process",
       "args": [

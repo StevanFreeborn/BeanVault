@@ -40,7 +40,7 @@ export function UserContextProvider({
   userStateReducer?: UserReducer;
   children: ReactNode;
 }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [userIsLoading, setUserIsLoading] = useState(true);
 
   const [userState, dispatchUserAction] = useReducer(userStateReducer, null);
 
@@ -57,11 +57,13 @@ export function UserContextProvider({
       });
     }
 
-    setIsLoading(false);
+    setUserIsLoading(false);
   }, []);
 
   return (
-    <UserContext.Provider value={{ isLoading, userState, dispatchUserAction }}>
+    <UserContext.Provider
+      value={{ userIsLoading, userState, dispatchUserAction }}
+    >
       {children}
     </UserContext.Provider>
   );

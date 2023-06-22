@@ -12,4 +12,5 @@ global using BeanVault.Services.AuthService.Infrastructure.Interfaces;
 global using BeanVault.Services.AuthService.Infrastructure.Models;
 
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc.Versioning;

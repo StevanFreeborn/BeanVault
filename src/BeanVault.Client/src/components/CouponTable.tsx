@@ -11,16 +11,17 @@ import styles from './CouponTable.module.css';
 
 export default function CouponTable() {
   const { userState } = useUserContext();
-  const authorizedClient = fetchClient({
-    headers: {
-      Authorization: `Bearer ${userState?.token}`,
-    },
+  const { getCoupons, deleteCoupon } = couponService({
+    client: fetchClient({
+      headers: {
+        Authorization: `Bearer ${userState?.token}`,
+      },
+    }),
   });
   const [isLoading, setIsLoading] = useState(true);
   const [coupons, setCoupons] = useState<Coupon[]>([]);
 
   useEffect(() => {
-    const { getCoupons } = couponService({ client: authorizedClient });
     getCoupons()
       .then(c => {
         setCoupons(c);
@@ -39,7 +40,6 @@ export default function CouponTable() {
   });
 
   async function handleDeleteButtonClick(e: MouseEvent<HTMLButtonElement>) {
-    const { deleteCoupon } = couponService({ client: authorizedClient });
     const id = e.currentTarget.dataset.couponId;
 
     if (id == undefined) {

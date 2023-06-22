@@ -15,6 +15,10 @@ public class UsersController : ControllerBase
     _jwtTokenService = jwtTokenService;
   }
 
+  /// <summary>
+  /// Get user by id
+  /// </summary>
+  [Authorize]
   [MapToApiVersion("1.0")]
   [HttpGet("{id}")]
   [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
@@ -27,6 +31,9 @@ public class UsersController : ControllerBase
     return Ok(userDto);
   }
 
+  /// <summary>
+  /// Register a new user
+  /// </summary>
   [MapToApiVersion("1.0")]
   [HttpPost("register")]
   [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
@@ -43,6 +50,9 @@ public class UsersController : ControllerBase
     );
   }
 
+  /// <summary>
+  /// Log a user in
+  /// </summary>
   [MapToApiVersion("1.0")]
   [HttpPost("login")]
   [ProducesResponseType(typeof(AuthUserDto), StatusCodes.Status200OK)]
@@ -58,6 +68,10 @@ public class UsersController : ControllerBase
     return Ok(authUserDto);
   }
 
+  /// <summary>
+  /// Add a role to a user
+  /// </summary>
+  [Authorize(Roles = "admin")]
   [MapToApiVersion("1.0")]
   [HttpPost("add-role")]
   [ProducesResponseType(StatusCodes.Status200OK)]

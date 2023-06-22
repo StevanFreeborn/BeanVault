@@ -2,7 +2,7 @@ import CouponTable from '@/components/CouponTable';
 import ProtectedPage from '@/components/ProtectedPage';
 import Link from 'next/link';
 import { AiOutlinePlusSquare } from 'react-icons/ai';
-import styles from './Page.module.css';
+import styles from './page.module.css';
 
 export default async function CouponsPage() {
   return (

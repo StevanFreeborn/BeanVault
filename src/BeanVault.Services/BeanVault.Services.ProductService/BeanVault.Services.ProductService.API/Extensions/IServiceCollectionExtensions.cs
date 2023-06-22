@@ -1,0 +1,78 @@
+namespace BeanVault.Services.ProductService.API.Extensions;
+
+public static class IServiceCollectionExtensions
+{
+  public static IServiceCollection AddSwagger(this IServiceCollection services)
+  {
+    services.AddSwaggerGen(
+      options =>
+      {
+        var securityScheme = new OpenApiSecurityScheme
+        {
+          Name = "Authorization",
+          Description = "Enter token in format: Bearer {token}",
+          In = ParameterLocation.Header,
+          Type = SecuritySchemeType.ApiKey,
+          Scheme = "Bearer"
+        };
+
+        var securityRequirement = new OpenApiSecurityRequirement
+        {
+      {
+        new OpenApiSecurityScheme
+        {
+          Reference = new OpenApiReference
+          {
+            Type = ReferenceType.SecurityScheme,
+            Id = JwtBearerDefaults.AuthenticationScheme,
+          }
+        },
+        Array.Empty<string>()
+      },
+        };
+
+        options.AddSecurityDefinition(name: "Bearer", securityScheme: securityScheme);
+        options.AddSecurityRequirement(securityRequirement);
+        options.IncludeXmlComments(
+          Path.Combine(
+            AppContext.BaseDirectory,
+            "BeanVault.Services.ProductService.API.xml"
+          ),
+          true
+        );
+      }
+    );
+
+    return services;
+  }
+
+  public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, ConfigurationManager config)
+  {
+    var jwtOptions = new JwtOptions();
+    config.GetSection(nameof(JwtOptions)).Bind(jwtOptions);
+    var jwtKey = Encoding.ASCII.GetBytes(jwtOptions.Secret);
+
+    services
+    .AddAuthentication(
+      options =>
+      {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }
+    )
+    .AddJwtBearer(
+      (options) =>
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(jwtKey),
+          ValidateIssuer = true,
+          ValidIssuer = jwtOptions.Issuer,
+          ValidateAudience = true,
+          ValidAudience = jwtOptions.Audience,
+        }
+    );
+
+    return services;
+  }
+}

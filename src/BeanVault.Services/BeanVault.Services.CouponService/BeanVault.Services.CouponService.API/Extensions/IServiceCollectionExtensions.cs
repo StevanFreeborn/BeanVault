@@ -33,6 +33,13 @@ public static class IServiceCollectionExtensions
 
         options.AddSecurityDefinition(name: "Bearer", securityScheme: securityScheme);
         options.AddSecurityRequirement(securityRequirement);
+        options.IncludeXmlComments(
+          Path.Combine(
+            AppContext.BaseDirectory,
+            "BeanVault.Services.CouponService.API.xml"
+          ),
+          true
+        );
       }
     );
 
