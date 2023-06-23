@@ -1,5 +1,3 @@
-using BeanVault.Services.ProductService.Infrastructure.Data.Mongo.Repositories;
-
 namespace BeanVault.Services.ProductService.Infrastructure.DependencyInjection;
 
 public static class DependencyInjection

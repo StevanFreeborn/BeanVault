@@ -1,0 +1,18 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "MongoDbOptions": {
+    "ConnectionString": "ConnectionString",
+    "DatabaseName": "DatabaseName"
+  },
+  "AllowedHosts": "*",
+  "JwtOptions": {
+    "Secret": "Secret",
+    "Issuer": "Issuer",
+    "Audience": "Audience"
+  }
+}
