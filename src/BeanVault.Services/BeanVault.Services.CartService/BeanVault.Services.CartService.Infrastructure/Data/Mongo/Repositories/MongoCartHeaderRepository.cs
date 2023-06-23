@@ -8,4 +8,15 @@ public class MongoCartHeaderRepository : ICartHeaderRepository
   {
     _context = context;
   }
+
+  // TODO: Implement
+  public Task<CartHeader> CreateCartHeaderAsync(CartHeader cartHeader)
+  {
+    throw new NotImplementedException();
+  }
+
+  public Task<CartHeader?> GetCartHeaderByUserIdAsync(string userId)
+  {
+    throw new NotImplementedException();
+  }
 }

@@ -8,4 +8,20 @@ public class MongoCartDetailsRepository : ICartDetailsRepository
   {
     _context = context;
   }
+
+  // TODO: Implement
+  public Task<CartDetails> CreateCartDetailsAsync(CartDetails cartDetail)
+  {
+    throw new NotImplementedException();
+  }
+
+  public Task<CartDetails?> GetCartDetailsByProductAndHeaderIdAsync(string productId, string headerId)
+  {
+    throw new NotImplementedException();
+  }
+
+  public Task<CartDetails> UpdateCartDetailsAsync(CartDetails cartDetail)
+  {
+    throw new NotImplementedException();
+  }
 }
