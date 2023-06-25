@@ -6,7 +6,8 @@
       "configurations": [
         "Launch AuthService",
         "Launch CouponService",
-        "Launch ProductService"
+        "Launch ProductService",
+        "Launch CartService"
       ]
     }
   ],
@@ -78,6 +79,30 @@
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "http://localhost:7000"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Launch CartService",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-cart-service",
+      "program": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CartService/BeanVault.Services.CartService.API/bin/Debug/net7.0/BeanVault.Services.CartService.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CartService/BeanVault.Services.CartService.API/",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:7003"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"

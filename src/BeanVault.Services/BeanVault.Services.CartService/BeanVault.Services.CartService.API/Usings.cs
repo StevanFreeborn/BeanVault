@@ -17,3 +17,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Versioning;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
+
+global using System.IdentityModel.Tokens.Jwt;

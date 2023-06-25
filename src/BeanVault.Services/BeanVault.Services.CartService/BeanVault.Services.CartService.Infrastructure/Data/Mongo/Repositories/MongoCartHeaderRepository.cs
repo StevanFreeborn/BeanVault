@@ -9,14 +9,36 @@ public class MongoCartHeaderRepository : ICartHeaderRepository
     _context = context;
   }
 
-  // TODO: Implement
-  public Task<CartHeader> CreateCartHeaderAsync(CartHeader cartHeader)
+  public async Task<CartHeader> CreateCartHeaderAsync(CartHeader cartHeader)
   {
-    throw new NotImplementedException();
+    await _context.CartHeaders.InsertOneAsync(cartHeader);
+    return cartHeader;
   }
 
-  public Task<CartHeader?> GetCartHeaderByUserIdAsync(string userId)
+  public async Task<CartHeader> GetCartHeaderByIdAsync(string id)
   {
-    throw new NotImplementedException();
+    var cartHeader = await _context.CartHeaders.Find(ch => ch.Id == id).FirstOrDefaultAsync();
+
+    if (cartHeader is null)
+    {
+      throw new ApplicationException($"Unable to find cart header with id: {id}");
+    }
+
+    return cartHeader;
+  }
+
+  public async Task<CartHeader?> GetCartHeaderByUserIdAsync(string userId)
+  {
+    return await _context.CartHeaders.Find(ch => ch.UserId == userId).FirstOrDefaultAsync();
+  }
+
+  public async Task RemoveCartHeaderByIdAsync(string id)
+  {
+    var deletedCartHeader = await _context.CartHeaders.FindOneAndDeleteAsync(ch => ch.Id == id);
+
+    if (deletedCartHeader is null)
+    {
+      throw new ApplicationException($"Unable to delete cart header with id: {id}");
+    }
   }
 }

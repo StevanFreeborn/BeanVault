@@ -50,26 +50,14 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "publish-coupon-service",
+      "label": "build-cart-service",
       "command": "dotnet",
       "type": "process",
       "args": [
-        "publish",
-        "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponAPI/BeanVault.Services.CouponAPI.csproj",
+        "build",
+        "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CartService/BeanVault.Services.CartService.API/",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
-      ],
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "watch",
-      "command": "dotnet",
-      "type": "process",
-      "args": [
-        "watch",
-        "run",
-        "--project",
-        "${workspaceFolder}/src/BeanVault.Services/BeanVault.Services.CouponAPI/BeanVault.Services.CouponAPI.csproj"
       ],
       "problemMatcher": "$msCompile"
     }
