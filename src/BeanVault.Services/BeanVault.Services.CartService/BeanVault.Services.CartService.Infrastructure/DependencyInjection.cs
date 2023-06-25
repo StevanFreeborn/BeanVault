@@ -11,8 +11,7 @@ public static class DependencyInjection
     );
 
     services.AddSingleton<MongoDbContext>();
-    services.AddScoped<ICartHeaderRepository, MongoCartHeaderRepository>();
-    services.AddScoped<ICartDetailsRepository, MongoCartDetailsRepository>();
+    services.AddScoped<ICartRepository, MongoCartRepository>();
 
     return services;
   }

@@ -11,3 +11,4 @@ global using MongoDB.Bson.Serialization;
 global using MongoDB.Bson.Serialization.IdGenerators;
 global using MongoDB.Driver;
 global using MongoDB.Driver.Linq;
+global using BeanVault.Services.CartService.Core.Exceptions;

@@ -19,3 +19,4 @@ global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 
 global using System.IdentityModel.Tokens.Jwt;
+global using BeanVault.Services.CartService.Core.Exceptions;

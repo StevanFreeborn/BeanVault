@@ -7,72 +7,67 @@ namespace BeanVault.Services.CartService.API.Controllers;
 [Produces("application/json")]
 public class CartsController : ControllerBase
 {
-  private readonly ICartHeaderRepository _cartHeaderRepository;
-  private readonly ICartDetailsRepository _cartDetailsRepository;
+  private readonly ICartRepository _cartRepository;
 
-  public CartsController(ICartHeaderRepository cartHeaderRepository, ICartDetailsRepository cartDetailsRepository)
+  public CartsController(ICartRepository cartRepository)
   {
-    _cartHeaderRepository = cartHeaderRepository;
-    _cartDetailsRepository = cartDetailsRepository;
+    _cartRepository = cartRepository;
   }
 
-  // [MapToApiVersion("1.0")]
-  // [HttpDelete("{cartId}/item/{cartDetailId}")]
-  // public async Task<IActionResult> DeleteCartDetail(string cartId, string cartDetailId)
-  // {
-  //   var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
-  //   var cartHeader = await _cartHeaderRepository.GetCartHeaderByIdAsync(cartId);
+  [MapToApiVersion("1.0")]
+  [HttpDelete("{userId}/items/{productId}")]
+  public async Task<IActionResult> DeleteCartItem(string userId, string productId)
+  {
+    var cart = await _cartRepository.GetCartByUserIdAsync(userId);
 
-  //   if (userId?.Value != cartHeader.UserId)
-  //   {
-  //     return Forbid();
-  //   }
+    if (cart is null)
+    {
+      return NotFound($"No cart found for user with id: {userId}");
+    }
 
-  //   await _cartDetailsRepository.RemoveCartDetailByIdAsync(cartDetailId);
+    var itemToRemove = cart.Items.FirstOrDefault(ci => ci.ProductId == productId);
 
-  //   var cartDetails = await _cartDetailsRepository.GetCartDetailsByCartHeaderIdAsync(cartHeader.Id);
+    if (itemToRemove is null)
+    {
+      return NotFound($"No item with id {productId} found in cart for user with id: ${userId}");
+    }
 
-  //   if (cartDetails.Any() is false)
-  //   {
-  //     await _cartHeaderRepository.RemoveCartHeaderByIdAsync(cartHeader.Id);
-  //   }
+    cart.Items.Remove(itemToRemove);
+    var updatedCart = await _cartRepository.UpdateCartAsync(cart);
 
-  //   return NoContent();
-  // }
+    return Ok(updatedCart);
+  }
 
-  // [MapToApiVersion("1.0")]
-  // [HttpPut]
-  // public async Task<IActionResult> AddOrUpdateCart(CartDto cartDto)
-  // {
-  //   var existingCartHeader = await _cartHeaderRepository.GetCartHeaderByUserIdAsync(cartDto.CartHeaderDto.UserId);
-  //   var productId = cartDto.CartDetailsDto.First().ProductId;
-  //   var cartDetailsDto = cartDto.CartDetailsDto.First();
+  [MapToApiVersion("1.0")]
+  [HttpPut("{userId}/items")]
+  public async Task<IActionResult> AddOrUpdateCart(string userId, AddCartItemDto addCartItemDto)
+  {
+    var cart = await _cartRepository.GetCartByUserIdAsync(userId);
 
-  //   if (existingCartHeader is null)
-  //   {
-  //     var newCartHeader = cartDto.CartHeaderDto.ToCartHeader();
-  //     var createdCartHeader = await _cartHeaderRepository.CreateCartHeaderAsync(newCartHeader);
+    if (cart is null)
+    {
+      var newCart = new Cart
+      {
+        UserId = userId,
+        Items = new() { addCartItemDto.ToCartItem() }
+      };
 
-  //     cartDetailsDto.CartHeaderId = createdCartHeader.Id;
+      var createdCart = await _cartRepository.CreateCartAsync(newCart);
+      return Ok(createdCart);
+    }
 
-  //     var newCartDetails = cartDetailsDto.ToCartDetails();
-  //     var createdCartDetails = await _cartDetailsRepository.CreateCartDetailsAsync(newCartDetails);
-  //     return Ok(new CartDto(createdCartHeader, createdCartDetails));
-  //   }
+    var cartItem = cart.Items.FirstOrDefault(ci => ci.ProductId == addCartItemDto.ProductId);
 
-  //   var existingCartDetails = await _cartDetailsRepository.GetCartDetailsByProductAndHeaderIdAsync(productId, existingCartHeader.Id);
+    if (cartItem is null)
+    {
+      cart.Items.Add(addCartItemDto.ToCartItem());
+    }
+    else
+    {
+      cartItem.Count += addCartItemDto.Count;
+    }
 
-  //   if (existingCartDetails is null)
-  //   {
-  //     cartDetailsDto.CartHeaderId = existingCartHeader.Id;
-  //     var newCartDetails = cartDetailsDto.ToCartDetails();
-  //     var createdCartDetails = await _cartDetailsRepository.CreateCartDetailsAsync(newCartDetails);
-  //     return Ok(new CartDto(existingCartHeader, createdCartDetails));
-  //   }
-
-  //   existingCartDetails.Count += cartDetailsDto.Count;
-  //   var updatedCartDetails = await _cartDetailsRepository.UpdateCartDetailsAsync(existingCartDetails);
-
-  //   return Ok(new CartDto(existingCartHeader, updatedCartDetails));
-  // }
+    var updatedCart = await _cartRepository.UpdateCartAsync(cart);
+    return Ok(updatedCart);
+  }
 }
