@@ -1,7 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
+builder.Services.Configure<ServiceUrls>(
+  config.GetSection(nameof(ServiceUrls))
+);
+
 builder.Services.AddInfrastructure(config);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<AuthHttpClientHandler>();
+builder.Services.AddAuthHttpClient();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApiVersioning(

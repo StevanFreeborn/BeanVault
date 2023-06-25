@@ -2,6 +2,15 @@ namespace BeanVault.Services.CartService.API.Extensions;
 
 public static class IServiceCollectionExtensions
 {
+  public static IServiceCollection AddAuthHttpClient(this IServiceCollection services)
+  {
+    services
+    .AddHttpClient("authClient")
+    .AddHttpMessageHandler<AuthHttpClientHandler>();
+
+    return services;
+  }
+
   public static IServiceCollection AddSwagger(this IServiceCollection services)
   {
     services.AddSwaggerGen(

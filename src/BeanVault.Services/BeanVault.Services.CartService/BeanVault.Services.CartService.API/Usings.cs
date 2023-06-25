@@ -18,5 +18,12 @@ global using Microsoft.AspNetCore.Mvc.Versioning;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 
-global using System.IdentityModel.Tokens.Jwt;
 global using BeanVault.Services.CartService.Core.Exceptions;
+global using BeanVault.Services.CartService.API.Interfaces;
+
+global using Microsoft.Extensions.Options;
+global using System.Net.Http.Headers;
+
+global using Microsoft.AspNetCore.Authentication;
+global using BeanVault.Services.CartService.API.Handlers;
+global using BeanVault.Services.CartService.API.Services;

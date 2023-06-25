@@ -15,6 +15,37 @@ public class CartsController : ControllerBase
   }
 
   [MapToApiVersion("1.0")]
+  [HttpGet]
+  public async Task<IActionResult> GetCart(string userId)
+  {
+    var cart = await _cartRepository.GetCartByUserIdAsync(userId);
+
+    if (cart is null)
+    {
+      return NotFound($"No cart found for user with id: {userId}");
+    }
+
+    return Ok(cart);
+  }
+
+  [MapToApiVersion("1.0")]
+  [HttpPut("{userId}/apply-coupon")]
+  public async Task<IActionResult> UpdateCart(string userId, UpdateCartCouponDto updateCartCouponDto)
+  {
+    var cart = await _cartRepository.GetCartByUserIdAsync(userId);
+
+    if (cart is null)
+    {
+      return NotFound($"No cart found for user with id: {userId}");
+    }
+
+    cart.CouponCode = updateCartCouponDto.CouponCode;
+    var updatedCart = await _cartRepository.UpdateCartAsync(cart);
+
+    return Ok(updatedCart);
+  }
+
+  [MapToApiVersion("1.0")]
   [HttpDelete("{userId}/items/{productId}")]
   public async Task<IActionResult> DeleteCartItem(string userId, string productId)
   {
@@ -40,7 +71,7 @@ public class CartsController : ControllerBase
 
   [MapToApiVersion("1.0")]
   [HttpPut("{userId}/items")]
-  public async Task<IActionResult> AddOrUpdateCart(string userId, AddCartItemDto addCartItemDto)
+  public async Task<IActionResult> AddOrUpdateCartItems(string userId, AddCartItemDto addCartItemDto)
   {
     var cart = await _cartRepository.GetCartByUserIdAsync(userId);
 

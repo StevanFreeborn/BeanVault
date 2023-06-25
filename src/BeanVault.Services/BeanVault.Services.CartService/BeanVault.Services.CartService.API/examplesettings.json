@@ -14,5 +14,9 @@
     "Secret": "Secret",
     "Issuer": "Issuer",
     "Audience": "Audience"
+  },
+  "ServiceUrls": {
+    "ProductService": "ProductService",
+    "CouponService": "CouponService"
   }
 }
