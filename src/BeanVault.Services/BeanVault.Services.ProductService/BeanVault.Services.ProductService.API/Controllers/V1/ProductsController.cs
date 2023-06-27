@@ -17,6 +17,7 @@ public class ProductsController : ControllerBase
   /// <summary>
   /// Get products
   /// </summary>
+  [AllowAnonymous]
   [MapToApiVersion("1.0")]
   [HttpGet]
   [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
