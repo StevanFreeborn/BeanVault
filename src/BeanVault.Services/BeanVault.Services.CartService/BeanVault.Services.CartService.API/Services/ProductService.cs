@@ -11,4 +11,11 @@ public class ProductService : IProductService
     _client = httpClientFactory.CreateClient("authClient");
     _client.BaseAddress = new Uri(_serviceUrls.ProductService);
   }
+
+  public async Task<CartItemDto?> GetProductAsync(string id)
+  {
+    return await _client.GetFromJsonAsync<CartItemDto>(
+      $"{_serviceUrls.ProductService}/api/products/{id}"
+    );
+  }
 }

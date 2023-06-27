@@ -8,14 +8,22 @@ namespace BeanVault.Services.CartService.API.Controllers;
 public class CartsController : ControllerBase
 {
   private readonly ICartRepository _cartRepository;
+  private readonly ICouponService _couponService;
+  private readonly IProductService _productService;
 
-  public CartsController(ICartRepository cartRepository)
+  public CartsController(
+    ICartRepository cartRepository,
+    ICouponService couponService,
+    IProductService productService
+  )
   {
     _cartRepository = cartRepository;
+    _couponService = couponService;
+    _productService = productService;
   }
 
   [MapToApiVersion("1.0")]
-  [HttpGet]
+  [HttpGet("{userId}")]
   public async Task<IActionResult> GetCart(string userId)
   {
     var cart = await _cartRepository.GetCartByUserIdAsync(userId);
@@ -25,7 +33,36 @@ public class CartsController : ControllerBase
       return NotFound($"No cart found for user with id: {userId}");
     }
 
-    return Ok(cart);
+    var cartItemDtos = new List<CartItemDto>();
+
+    foreach (var item in cart.Items)
+    {
+      var cartItemDto = await _productService.GetProductAsync(item.ProductId);
+
+      if (cartItemDto is null)
+      {
+        continue;
+      }
+
+      cartItemDto.Count = item.Count;
+      cartItemDto.ProductId = item.ProductId;
+      cartItemDtos.Add(cartItemDto);
+    }
+
+    var cartDto = new CartDto(cart, cartItemDtos);
+
+    if (string.IsNullOrWhiteSpace(cart.CouponCode) is false)
+    {
+      var couponCode = await _couponService.GetCouponAsync(cart.CouponCode);
+
+      if (couponCode is not null && couponCode.MinAmount < cartDto.Total)
+      {
+        cartDto.DiscountAmount = couponCode.DiscountAmount;
+        cartDto.DiscountedTotal = cartDto.Total - couponCode.DiscountAmount;
+      }
+    }
+
+    return Ok(cartDto);
   }
 
   [MapToApiVersion("1.0")]

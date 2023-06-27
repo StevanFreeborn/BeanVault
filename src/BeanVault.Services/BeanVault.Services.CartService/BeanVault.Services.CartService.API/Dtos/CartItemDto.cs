@@ -1,7 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace BeanVault.Services.CartService.API.Dtos;
 
 public class CartItemDto
 {
+  [JsonPropertyName("id")]
   public string ProductId { get; set; } = string.Empty;
   public int Count { get; set; }
   public string Name { get; set; } = string.Empty;

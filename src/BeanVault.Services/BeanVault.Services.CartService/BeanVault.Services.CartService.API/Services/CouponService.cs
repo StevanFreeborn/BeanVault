@@ -11,4 +11,13 @@ public class CouponService : ICouponService
     _client = httpClientFactory.CreateClient("authClient");
     _client.BaseAddress = new Uri(_serviceUrls.CouponService);
   }
+
+  public async Task<Coupon?> GetCouponAsync(string couponCode)
+  {
+    var coupons = await _client.GetFromJsonAsync<List<Coupon>>(
+      $"{_serviceUrls.CouponService}/api/coupons?couponCode={couponCode}"
+    );
+
+    return coupons?.FirstOrDefault();
+  }
 }
