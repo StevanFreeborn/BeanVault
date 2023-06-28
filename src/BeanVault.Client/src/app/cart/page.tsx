@@ -20,8 +20,12 @@ export default function CartPage() {
           <ShoppingCart />
         </div>
         <div className={styles.cartFooter}>
-          <button>Email Cart</button>
-          <button>Checkout</button>
+          <button className={styles.emailButton} type="button">
+            Email Cart
+          </button>
+          <Link className={styles.checkoutLink} href="#">
+            Checkout
+          </Link>
         </div>
       </div>
     </ProtectedPage>
